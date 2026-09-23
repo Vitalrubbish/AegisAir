@@ -182,6 +182,7 @@ def main():
         "Infrastructure-invalid attempts remain represented in the archived statuses and manifests. "
         "The release omits bulky container/PX4/MQTT text logs and most runtime sidecars; it retains original episode summaries, trajectories, run settings, integrity records, and selected telemetry-arrival/command sidecars. "
         "The source snapshot reflects release time; per-attempt hashes identify the historical runtime, whose complete environment is not reconstructed by this archive. "
+        "Absolute paths in archived records are historical host metadata; checksum verification works without those paths, while some legacy analysis scripts need path rebasing after extraction. "
         "Reported selected-output feasibility should not be read as certification of every published command.\n\n"
         "中文说明：本包保留论文核心表图对应的逐次摘要、轨迹、配置、校验和有效负结果。"
         "历史静态接纳、开发阶段的有效拒绝、最终方法资格组和原二十例修正重跑分别解释；"
@@ -197,7 +198,17 @@ def main():
         "This notice does not relicense third-party PX4/Gazebo components or the included source-code snapshot.\n"
     )
     shutil.copy2(REPO / "scripts/verify_drones_public_release.py", args.out / "verify_release.py")
-    products = sorted(p for p in args.out.iterdir() if p.name != "SHA256SUMS")
+    release_names = [
+        "LICENSE_DATA.md",
+        "README.md",
+        "aegisair-drones-admission-evidence.zip",
+        "aegisair-drones-control-evidence.zip",
+        "aegisair-drones-mission-evidence.zip",
+        "aegisair-drones-source-snapshot.zip",
+        "file_manifest.json",
+        "verify_release.py",
+    ]
+    products = [args.out / name for name in release_names]
     (args.out / "SHA256SUMS").write_text("".join(f"{sha256(path)}  {path.name}\n" for path in products))
     print(f"manifest: {len(entries)} files; security findings: {len(findings)}", flush=True)
 
