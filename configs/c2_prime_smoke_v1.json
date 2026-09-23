@@ -1,0 +1,14 @@
+{
+  "protocol_id": "aegisair-c2-prime-v1",
+  "phase": "validation",
+  "rate_hz": 20.0,
+  "max_steps": 150,
+  "trials": [
+    {"trial_id": "smoke01", "lateral_m": 0.00, "condition_order": ["E2_FIXED", "E2_QP_GATE", "C2_PRIME"]},
+    {"trial_id": "smoke02", "lateral_m": -0.10, "condition_order": ["E2_QP_GATE", "C2_PRIME", "E2_FIXED"]},
+    {"trial_id": "smoke03", "lateral_m": 0.10, "condition_order": ["C2_PRIME", "E2_FIXED", "E2_QP_GATE"]},
+    {"trial_id": "smoke04", "lateral_m": -0.20, "condition_order": ["C2_PRIME", "E2_QP_GATE", "E2_FIXED"]},
+    {"trial_id": "smoke05", "lateral_m": 0.20, "condition_order": ["E2_FIXED", "C2_PRIME", "E2_QP_GATE"]},
+    {"trial_id": "smoke06", "lateral_m": 0.00, "condition_order": ["E2_QP_GATE", "E2_FIXED", "C2_PRIME"]}
+  ]
+}

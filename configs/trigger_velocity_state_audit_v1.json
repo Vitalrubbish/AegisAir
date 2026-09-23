@@ -1,0 +1,16 @@
+{
+  "protocol_id": "aegisair-trigger-velocity-state-audit-v1",
+  "phase": "离线状态机制审计，不参与 development 阈值选择",
+  "parent_grids": ["trigger_comparison_development_grid1_v1.json", "trigger_comparison_development_grid2_v1.json", "trigger_comparison_development_grid3_v1.json"],
+  "scenarios": ["base", "wide_head_on", "diagonal_crossing"],
+  "route_fractions": [0.2, 0.35, 0.45],
+  "signed_speed_mps": [-1.5, 0.0, 0.5, 1.0, 1.5],
+  "heading_rotation_deg": [0, 90],
+  "aoi_s": 0.05,
+  "position_rule": "两机位置分别为原 reset_start 到原 base_goal 的同一线性插值；视为已提供给 RA 的状态，不模拟到达或补偿历史。",
+  "velocity_rule": "原起终点方向单位向量旋转 0/90 度再乘有符号速度；z 速度为零，全部水平分量不超过 1.5 m/s。",
+  "nominal_rule": "对固定位置到原目标的误差乘 1.5，再按分量限幅至 1.5 m/s，与各方法共享。",
+  "controller_rule": "复用原开发配置的 RuntimeAssurance 参数，8 个不同设置（Reactive、ReserveOnly、三个距离、三个 TTC）。每个状态新建 RA，评估一次，零初始 latch。",
+  "analysis_rule": "完整 90 状态、720 次设置评估；记录原始距离、冻结当前主边界的 TTC、reserve、主可行性与实际单步触发原因。相同状态的主边界/主可行性/reserve 必须一致。原始距离阈值不随速度变，但距离方法仍会因主 QP 不可行而触发，二者明确区分。",
+  "claim_boundary": "不是 PX4 实验、轨迹预测、真实初速度注入、反事实结局或触发准确率；不把接受/触发率高低当优越性，不用于选择最终阈值。所有网格点均保留。"
+}

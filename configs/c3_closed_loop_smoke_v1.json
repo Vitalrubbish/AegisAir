@@ -1,0 +1,29 @@
+{
+  "protocol_id": "aegisair-c3-closed-loop-v1",
+  "phase": "smoke",
+  "scenario": "drone_failure",
+  "rate_hz": 20.0,
+  "max_steps": 600,
+  "goal_epsilon": 0.5,
+  "drone_ids": [2, 3],
+  "base_goals": {
+    "2": [4.0, 0.0, 2.5],
+    "3": [4.0, -2.0, 2.5]
+  },
+  "reset_starts": {
+    "2": [-4.0, 0.0, 2.5],
+    "3": [-4.0, -2.0, 2.5]
+  },
+  "mission_change": {"kind": "fail_drone", "drone": 2},
+  "change_step": 30,
+  "failed_drone": 2,
+  "critical_goal": [4.0, 0.0],
+  "trials": [
+    {"trial_id": "smoke01", "condition_order": ["R0", "R1"]},
+    {"trial_id": "smoke02", "condition_order": ["R1", "R0"]},
+    {"trial_id": "smoke03", "condition_order": ["R0", "R1"]},
+    {"trial_id": "smoke04", "condition_order": ["R1", "R0"]},
+    {"trial_id": "smoke05", "condition_order": ["R0", "R1"]},
+    {"trial_id": "smoke06", "condition_order": ["R1", "R0"]}
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "protocol_id": "aegisair-c1-sota-cbf-px4-smoke-v1",
+  "phase": "smoke",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2":[4.0,-0.5,2.5],"3":[-4.0,0.5,2.5]},
+  "reset_starts": {"2":[-4.0,0.5,2.5],"3":[4.0,-0.5,2.5]},
+  "methods": {
+    "VELOCITY_CBF": {"constraint_boundary":"static","alpha":1.0},
+    "ZOCBF": {"constraint_boundary":"static","barrier_model_tau_s":0.70,"gamma":0.10,"delta_m":0.05},
+    "PB_CBF": {"constraint_boundary":"static","alpha":1.0,"braking_accel_mps2":3.0},
+    "AEGIS_HOCBF_V2": {"constraint_boundary":"full","k1":4.0,"k2":6.0,"boundary_guard":0.5,"boundary_buffer_m":0.0,"barrier_model_tau_s":0.70}
+  },
+  "trials": [
+    {"trial_id":"cbfsmoke01","seed":7601,"condition_order":["VELOCITY_CBF","ZOCBF","PB_CBF","AEGIS_HOCBF_V2"]}
+  ],
+  "smoke_gate": "all methods produce valid trajectories; AEGIS_HOCBF_V2 has nonzero interventions, collision=false, min_rho>0, and mission_complete=true"
+}

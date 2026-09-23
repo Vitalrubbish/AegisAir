@@ -1,0 +1,59 @@
+{
+  "protocol_id": "aegisair-c3-admission-4uav-calibration-smoke-v2",
+  "phase": "one_time_adjusted_calibration_not_sealed_evidence",
+  "parent_calibration": "/Volumes/Expansion/Aegis/c3_admission_4uav_calibration_smoke_v1/calibration/summary.json",
+  "adjustment_count": 1,
+  "gazebo_seed": 9511,
+  "rate_hz": 20.0,
+  "max_steps": 800,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [2, 3, 4, 5],
+  "scenario_id": "four_uav_simultaneous_crossing",
+  "reset_starts": {
+    "2": [-3.0, 0.8, 2.5],
+    "3": [3.0, -0.8, 2.5],
+    "4": [-3.0, -0.8, 2.5],
+    "5": [3.0, 0.8, 2.5]
+  },
+  "base_goals": {
+    "2": [3.0, -0.8, 2.5],
+    "3": [-3.0, 0.8, 2.5],
+    "4": [3.0, 0.8, 2.5],
+    "5": [-3.0, -0.8, 2.5]
+  },
+  "condition_order": ["R0_RA_ONLY", "R1_SEQUENTIAL_PASS", "R2_C3_ADMISSION"],
+  "c3_admission": {
+    "conflict_zone_id": "crossing_center",
+    "conflict_zone_center": [0.0, 0.0],
+    "conflict_zone_radius_m": 2.0,
+    "admission_horizon_s": 3.0,
+    "reserve_threshold": 1.0,
+    "predicted_rho_warning": 0.2,
+    "fallback_d_safe_m": 1.6,
+    "release_margin_m": 0.5,
+    "hold_offset_m": 1.5,
+    "hold_goal_epsilon_m": 0.35,
+    "calibration_status": "single_allowed_adjustment_consumed_freeze_candidate"
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "calibration_go_criteria": "三条件均为有效启动且无物理碰撞、RA bypass=0、P99<50ms且deadline miss=0；R2触发在当前rho仍为正时，完整经过pending/hold/pass/release，冻结等待点不漂移，selected QP infeasible=0、min_rho>0并完成四机任务。R0/R1只作诊断比较，不要求完成或rho为正。",
+  "stopping_rule": "本文件已消耗唯一一次冲突区/时域调整。若R2仍未满足任一Go条件，则C3-Admission calibration最终No-Go；不得继续调冲突区、时域或RA参数，也不得生成sealed seed。",
+  "claim_boundary": "原C3仍只证明fail-closed orphan-goal recovery。本smoke仅校准新增事件触发准入分支，不是sealed论文证据。"
+}

@@ -1,0 +1,37 @@
+{
+  "protocol_id":"aegisair-c1-sota-only-validation-v1",
+  "phase":"sealed_validation",
+  "calibration_artifacts":{"sota":"/Volumes/Expansion/Aegis/c1_sota_cbf_calibration_v5_shared_execution_budget.json","ours":"/Volumes/Expansion/Aegis/c1_hocbf_v3_gain_calibration_v1.json"},
+  "scenarios":["head_on","crossing","multi_uav"],
+  "max_steps":300,"dt_s":0.05,"start_goal_noise_m":0.10,"nominal_velocity_noise_mps":0.20,"execution_tau_s":0.70,
+  "common":{"v_max_mps":1.5,"a_max_mps2":2.0,"kv":2.0,"command_feedforward_tau_s":0.70,"observation_mode":"shared_current","qp_max_iters":500},
+  "methods":{
+    "AEGIS_HOCBF_V3":{"constraint_boundary":"full","k1":4.0,"k2":4.0,"boundary_guard":1.0,"boundary_buffer_m":0.30,"barrier_model_tau_s":0.70,"infeasible_fallback":"max_brake"},
+    "ZOCBF":{"constraint_boundary":"static","barrier_model_tau_s":0.70,"gamma":0.05,"delta_m":0.10,"boundary_buffer_m":0.30,"infeasible_fallback":"max_brake"},
+    "PB_CBF":{"constraint_boundary":"static","alpha":0.5,"braking_accel_mps2":2.0,"boundary_buffer_m":0.30,"infeasible_fallback":"max_brake"}
+  },
+  "trials":[
+    {"trial_id":"sotaonly01","seed":8201,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly02","seed":8202,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"sotaonly03","seed":8203,"condition_order":["PB_CBF","AEGIS_HOCBF_V3","ZOCBF"]},
+    {"trial_id":"sotaonly04","seed":8204,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly05","seed":8205,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"sotaonly06","seed":8206,"condition_order":["PB_CBF","AEGIS_HOCBF_V3","ZOCBF"]},
+    {"trial_id":"sotaonly07","seed":8207,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly08","seed":8208,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"sotaonly09","seed":8209,"condition_order":["PB_CBF","AEGIS_HOCBF_V3","ZOCBF"]},
+    {"trial_id":"sotaonly10","seed":8210,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly11","seed":8211,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"sotaonly12","seed":8212,"condition_order":["PB_CBF","AEGIS_HOCBF_V3","ZOCBF"]},
+    {"trial_id":"sotaonly13","seed":8213,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly14","seed":8214,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"sotaonly15","seed":8215,"condition_order":["PB_CBF","AEGIS_HOCBF_V3","ZOCBF"]},
+    {"trial_id":"sotaonly16","seed":8216,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly17","seed":8217,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"sotaonly18","seed":8218,"condition_order":["PB_CBF","AEGIS_HOCBF_V3","ZOCBF"]},
+    {"trial_id":"sotaonly19","seed":8219,"condition_order":["AEGIS_HOCBF_V3","ZOCBF","PB_CBF"]},
+    {"trial_id":"sotaonly20","seed":8220,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V3"]}
+  ],
+  "go_criteria":{"absolute":"AEGIS_HOCBF_V3 has 60/60 complete, collision=0, min_rho>0","sota":"report collision, violation, completion, infeasibility, effort and path for ZOCBF/PB_CBF under shared execution budget"},
+  "stopping_rule":"Do not alter parameters, drop trials, or append seeds after reading results."
+}

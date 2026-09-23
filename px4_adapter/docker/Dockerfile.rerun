@@ -1,0 +1,5 @@
+# 在已有本机依赖镜像上封装当前 adapter，避免复用旧代码。
+FROM aegisair-px4-bridge:humble
+COPY px4_adapter /work/px4_adapter
+COPY px4_adapter/docker/run_adapter.sh /usr/local/bin/run_adapter.sh
+RUN chmod +x /usr/local/bin/run_adapter.sh

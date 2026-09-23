@@ -1,0 +1,37 @@
+{
+  "protocol_id": "aegisair-c1-sota-cbf-calibration-v3-current-tau",
+  "phase": "calibration",
+  "supersedes": "aegisair-c1-sota-cbf-calibration-v2-feedforward",
+  "supersession_reason": "v2 accidentally inherited the historical Phase-7 tau interval [0.53,1.76]; v3 gives the adapted baselines the identified point execution model tau=0.7 and reserves the paper method's frozen barrier tau=0.2 for validation",
+  "seeds": [7301, 7302, 7303, 7304, 7305],
+  "scenarios": ["head_on", "crossing", "multi_uav"],
+  "max_steps": 300,
+  "dt_s": 0.05,
+  "start_goal_noise_m": 0.10,
+  "nominal_velocity_noise_mps": 0.20,
+  "execution_tau_s": 0.70,
+  "common": {
+    "v_max_mps": 1.5,
+    "a_max_mps2": 2.0,
+    "kv": 2.0,
+    "barrier_model_tau_s": 0.70,
+    "command_feedforward_tau_s": 0.70,
+    "observation_mode": "shared_current",
+    "qp_max_iters": 500
+  },
+  "zocbf_grid": {
+    "gamma": [0.1, 0.3, 0.5, 0.8, 1.0],
+    "delta_m": [0.0, 0.005]
+  },
+  "pb_cbf_grid": {
+    "alpha": [1.0, 2.0, 4.0, 8.0],
+    "braking_accel_mps2": [1.5, 2.0, 3.0]
+  },
+  "selection_rule": [
+    "minimize_collision_count",
+    "minimize_common_reference_boundary_violation_count",
+    "minimize_qp_infeasible_steps",
+    "maximize_completion_count",
+    "minimize_mean_control_effort"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "protocol_id": "aegisair-c3-reservation-4uav-qualification-v1",
+  "phase": "five_seed_qualification_not_final_statistics",
+  "rate_hz": 20,
+  "max_steps": 1200,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "scenario_id": "four_uav_simultaneous_crossing_terminal_occupancy",
+  "reset_starts": {
+    "2": [
+      -3,
+      0.8,
+      2.5
+    ],
+    "3": [
+      3,
+      -0.8,
+      2.5
+    ],
+    "4": [
+      -3,
+      -0.8,
+      2.5
+    ],
+    "5": [
+      3,
+      0.8,
+      2.5
+    ]
+  },
+  "base_goals": {
+    "2": [
+      3,
+      -0.8,
+      2.5
+    ],
+    "3": [
+      -3,
+      0.8,
+      2.5
+    ],
+    "4": [
+      3,
+      0.8,
+      2.5
+    ],
+    "5": [
+      -3,
+      -0.8,
+      2.5
+    ]
+  },
+  "shared_admission": {
+    "conflict_zone_id": "crossing_center",
+    "conflict_zone_center": [
+      0,
+      0
+    ],
+    "conflict_zone_radius_m": 2,
+    "admission_horizon_s": 3,
+    "reserve_threshold": 1,
+    "predicted_rho_warning": 0.2,
+    "fallback_d_safe_m": 1.6,
+    "hold_offset_m": 1.5,
+    "position_epsilon_m": 0.35
+  },
+  "reservation": {
+    "clearance_offset_m": 2.2,
+    "speed_epsilon_mps": 0.15,
+    "settle_steps": 5,
+    "ra_veto_streak_limit": 3,
+    "transit_scale": 0.6,
+    "clearance_rule": "goal_path_perpendicular_candidate_maximizes_remaining_path_and_stage_hold_clearance",
+    "terminal_sequence": "stage_settled_pass_goal_latch_clear_release_final_return"
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4,
+    "k2": 4,
+    "boundary_guard": 1,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "calibration_go_criteria": "R3必须在1200步内完整出现staging/pass/clear/release/final_return/complete，四机service_latched、cleared、final_returned均完整，最终四机位于原目标容差内；collision=0、min_rho>0、selected QP infeasible=0、RA bypass=0、revoke_count=0；RA P99<50ms且deadline miss率<1%。R2仅作同条件诊断基线。",
+  "stopping_rule": "R3任一有效trial出现rho<=0、selected QP infeasible>0、任务未完成、RA bypass>0、状态生命周期不完整、revoke_count>0或实时性门失败，立即Qualification No-Go并停止后续算法trial；不得调参或重跑有效失败。遥测未就绪、连接丢失、PX4/Gazebo启动失败等纯基础设施无效启动单独记录，同seed同条件最多重试3次，不计入算法样本。",
+  "claim_boundary": "本qualification只决定C3-Reservation是否可进入20-seed sealed paired validation。主对照为R2 C3-Admission+RA与R3 C3-Reservation+RA；不扩MAPPO，不重跑已No-Go的直接四机B2，不声称一般化四机安全。",
+  "parent_calibration": "/Volumes/Expansion/Aegis/c3_reservation_4uav_calibration_smoke_v1_retry1/calibration/summary.json",
+  "qualification_seeds": [
+    9601,
+    9602,
+    9603,
+    9604,
+    9605
+  ],
+  "condition_order_by_seed": {
+    "9601": [
+      "R2_C3_ADMISSION",
+      "R3_C3_RESERVATION"
+    ],
+    "9602": [
+      "R3_C3_RESERVATION",
+      "R2_C3_ADMISSION"
+    ],
+    "9603": [
+      "R2_C3_ADMISSION",
+      "R3_C3_RESERVATION"
+    ],
+    "9604": [
+      "R3_C3_RESERVATION",
+      "R2_C3_ADMISSION"
+    ],
+    "9605": [
+      "R2_C3_ADMISSION",
+      "R3_C3_RESERVATION"
+    ]
+  },
+  "max_invalid_attempts_per_condition": 3,
+  "qualification_go_criteria": "五个全新seed的R3有效trial必须全部在1200步内完整出现staging/pass/clear/release/final_return/complete，四机service_latched、cleared、final_returned均为4/4，最终四机位于原目标容差内；每个R3均须collision=0、min_rho>0、selected QP infeasible=0、RA bypass=0、revoke_count=0、RA P99<50ms且deadline miss率<1%。R2只作配对机制消融，不决定qualification Go。",
+  "sealed_gate": "只有5/5 R3有效qualification trial全部通过，才允许生成并运行固定20个新seed的sealed paired protocol；qualification数据不进入最终统计。"
+}
+

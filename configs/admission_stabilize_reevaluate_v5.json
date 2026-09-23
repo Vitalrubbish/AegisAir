@@ -1,0 +1,14 @@
+{
+  "protocol_id": "aegisair-admission-stabilize-reevaluate-v5",
+  "supersedes": "dynamic_admission_v4_nonblocking_bridge only for new evidence; prior valid refusal remains archived",
+  "trigger": "Only when a healthy UAV's measured horizontal velocity exceeds the unchanged 1.5 m/s component limit at the failure event",
+  "hold": "Freeze the healthy UAV's goal at its failure-event position, command zero nominal velocity, and continue RA filtering",
+  "stabilization_wait_s": 2.0,
+  "stabilization_speed_margin_mps": 0.05,
+  "stabilization_consecutive_samples": 3,
+  "recheck": "After three consecutive measured samples with each horizontal velocity component <=1.45 m/s, evaluate the existing dynamic gate exactly once from the current measured states and failed-vehicle braking envelope",
+  "timeout": "At 2.0 s without stability, reject permanently and retain safe hold; missing or non-finite velocity cannot count as stable",
+  "preserve": "Original v4 geometry, seeds, order, RA settings, clearance, route candidates, rollout, and valid negative result are unchanged",
+  "sequence": "Run all calibration conditions from first seed in a new output root; only GO permits qualification, only qualification GO permits sealed and dependent comparison",
+  "stop_rule": "After completing a paired case, an admission or safe-hold failure stops dependent later cases; valid baselines remain results, infrastructure invalidity is retried same seed, and no effective failure is discarded"
+}

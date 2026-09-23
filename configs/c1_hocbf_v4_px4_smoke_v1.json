@@ -1,0 +1,48 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v4-px4-smoke-v1",
+  "phase": "independent_smoke",
+  "calibration_artifact": "/Volumes/Expansion/Aegis/c1_hocbf_v4_px4_calibration_v2_delay_guard",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, -0.5, 2.5], "3": [-4.0, 0.5, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.5, 2.5], "3": [4.0, -0.5, 2.5]},
+  "methods": {
+    "AEGIS_HOCBF_V4": {
+      "constraint_boundary": "full", "k1": 4.0, "k2": 4.0,
+      "boundary_guard": 1.0, "boundary_buffer_m": 0.30,
+      "barrier_model_tau_s": 0.70,
+      "predictive_recovery": true,
+      "prediction_execution_fraction": 0.0,
+      "prediction_steps": 3,
+      "recovery_reserve_threshold": 1.0,
+      "recovery_alpha": 0.5,
+      "recovery_braking_accel_mps2": 2.0,
+      "recovery_boundary_buffer_m": 0.30,
+      "recovery_clear_steps": 5
+    },
+    "AEGIS_HOCBF_V3": {
+      "constraint_boundary": "full", "k1": 4.0, "k2": 4.0,
+      "boundary_guard": 1.0, "boundary_buffer_m": 0.30,
+      "barrier_model_tau_s": 0.70, "infeasible_fallback": "max_brake"
+    },
+    "PB_CBF": {
+      "constraint_boundary": "static", "alpha": 0.5,
+      "braking_accel_mps2": 2.0, "boundary_buffer_m": 0.30,
+      "infeasible_fallback": "max_brake"
+    }
+  },
+  "trials": [
+    {"trial_id": "v4smoke01", "seed": 8801, "condition_order": ["AEGIS_HOCBF_V4", "AEGIS_HOCBF_V3", "PB_CBF"]},
+    {"trial_id": "v4smoke02", "seed": 8802, "condition_order": ["AEGIS_HOCBF_V3", "PB_CBF", "AEGIS_HOCBF_V4"]},
+    {"trial_id": "v4smoke03", "seed": 8803, "condition_order": ["PB_CBF", "AEGIS_HOCBF_V4", "AEGIS_HOCBF_V3"]}
+  ],
+  "go_criteria": {
+    "absolute": "所有条件 collision=0、mission_complete=true、min_rho>0",
+    "mechanism": "V4 selected-QP infeasible=0，且至少一次 reserve 触发发生在 primary infeasible 之前",
+    "comparative": "仅报告 V4 相对 V3 和 PB-only 的裕度、介入、控制代价与路径折中；smoke 不做显著性结论"
+  },
+  "stopping_rule": "任一绝对门失败立即停止，不改参数、不追加 smoke seeds。"
+}

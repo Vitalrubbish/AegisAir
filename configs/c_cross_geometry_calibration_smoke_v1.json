@@ -1,0 +1,64 @@
+{
+  "protocol_id": "aegisair-c-cross-geometry-calibration-smoke-v1",
+  "phase": "calibration_smoke_not_sealed_evidence",
+  "rate_hz": 20.0,
+  "max_steps": 600,
+  "goal_epsilon": 0.5,
+  "drone_ids": [2, 3],
+  "failed_drone": 2,
+  "mission_change": {"kind": "fail_drone", "drone": 2},
+  "change_step": 30,
+  "velocity_command_mode": "feedforward_tau",
+  "tau_command_s": 0.7,
+  "ra_config": {
+    "tau_ctrl_s": 0.2,
+    "execution_tau_s": 0.7,
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "geometries": {
+    "on_path_failure": {
+      "description": "失效机位于健康机飞向 orphan goal 的直接路径附近。",
+      "world": "S1",
+      "reset_starts": {"2": [-1.5, 0.0, 2.5], "3": [-4.0, 0.0, 2.5]},
+      "base_goals": {"2": [4.0, 0.0, 2.5], "3": [4.0, -2.0, 2.5]},
+      "critical_goal": [4.0, 0.0]
+    },
+    "lateral_failure": {
+      "description": "失效机与健康机到 orphan goal 的直线路径保持明显横向偏置。",
+      "world": "S1",
+      "reset_starts": {"2": [-1.5, 2.0, 2.5], "3": [-4.0, -2.0, 2.5]},
+      "base_goals": {"2": [4.0, 2.0, 2.5], "3": [4.0, -2.0, 2.5]},
+      "critical_goal": [4.0, 2.0]
+    },
+    "bottleneck_merge_failure": {
+      "description": "两条近邻航线向同一汇入区收敛，失效机靠近健康机的恢复通路。",
+      "world": "S1",
+      "reset_starts": {"2": [-1.5, 0.0, 2.5], "3": [-4.0, -1.2, 2.5]},
+      "base_goals": {"2": [4.0, 0.0, 2.5], "3": [4.0, -1.2, 2.5]},
+      "critical_goal": [4.0, 0.0]
+    }
+  },
+  "trials": [
+    {"trial_id": "cgeo_onpath_smoke", "geometry_id": "on_path_failure", "seed": 9511, "condition_order": ["R0", "R1"]},
+    {"trial_id": "cgeo_lateral_smoke", "geometry_id": "lateral_failure", "seed": 9512, "condition_order": ["R1", "R0"]},
+    {"trial_id": "cgeo_bottleneck_smoke", "geometry_id": "bottleneck_merge_failure", "seed": 9513, "condition_order": ["R0", "R1"]}
+  ],
+  "go_criteria": {
+    "closure": "每个几何 R0 不覆盖 orphan critical goal，R1 覆盖。",
+    "safety": "所有有效 episode collision=0、min_rho>0、selected-QP infeasible=0、RA bypass=0。",
+    "authority": "change_step 起失效机每步 command_authority=failed_zero 且水平命令为零；R1 mission_changes=1。",
+    "deadline": "每个 episode RA P99<50 ms 且 deadline miss=0。"
+  },
+  "stopping_rule": "任一几何出现有效 collision、min_rho<=0、RA bypass、权限撤销失败、R0 覆盖或 R1 未覆盖，则该几何 No-Go，不调参数、不追加 smoke seed；未启动或 failsafe/connection loss 与有效负结果分开。",
+  "claim_boundary": "calibration smoke 仅冻结几何和验证日志；通过后才能生成独立 sealed seeds。已发表恢复/安全基线等待工作包 A 完成后再加入。"
+}

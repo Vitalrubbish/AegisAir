@@ -1,0 +1,154 @@
+{
+  "protocol_id": "aegisair-c3-reservation-mappo-pass-only-4uav-calibration-v2",
+  "phase": "mappo_pass_only_role_calibration_not_sealed_evidence",
+  "pilot_application": "pass_only",
+  "gazebo_seed": 9521,
+  "rate_hz": 20,
+  "max_steps": 1200,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "scenario_id": "four_uav_simultaneous_crossing_terminal_occupancy",
+  "reset_starts": {
+    "2": [
+      -3,
+      0.8,
+      2.5
+    ],
+    "3": [
+      3,
+      -0.8,
+      2.5
+    ],
+    "4": [
+      -3,
+      -0.8,
+      2.5
+    ],
+    "5": [
+      3,
+      0.8,
+      2.5
+    ]
+  },
+  "base_goals": {
+    "2": [
+      3,
+      -0.8,
+      2.5
+    ],
+    "3": [
+      -3,
+      0.8,
+      2.5
+    ],
+    "4": [
+      3,
+      0.8,
+      2.5
+    ],
+    "5": [
+      -3,
+      -0.8,
+      2.5
+    ]
+  },
+  "condition_order": [
+    "G0_RULE_C3_RESERVATION",
+    "G1_MAPPO_SEED1_C3_RESERVATION",
+    "G1_MAPPO_SEED2_C3_RESERVATION",
+    "G1_MAPPO_SEED3_C3_RESERVATION",
+    "G1_MAPPO_SEED4_C3_RESERVATION",
+    "G1_MAPPO_SEED5_C3_RESERVATION"
+  ],
+  "pilot_interface": {
+    "num_agents": 4,
+    "obs_dim": 44,
+    "action_dim": 2,
+    "max_neighbors": 8,
+    "speed_limit_mps": 1.5,
+    "action_semantics": "deterministic_xy_velocity_nominal_only"
+  },
+  "mappo_pilots": {
+    "G1_MAPPO_SEED1_C3_RESERVATION": {
+      "training_seed": 1,
+      "training_scenario": "randomized_4",
+      "checkpoint": "/Volumes/Expansion/safedrones_marllib_vec/randomized_4/seed1/checkpoints/final.pt",
+      "sha256": "ec0b0114fd9158304eda8967de4de9b8c4c6034b1005ddca979a72bf0d793f5f"
+    },
+    "G1_MAPPO_SEED2_C3_RESERVATION": {
+      "training_seed": 2,
+      "training_scenario": "randomized_4",
+      "checkpoint": "/Volumes/Expansion/safedrones_marllib_vec/randomized_4/seed2/checkpoints/final.pt",
+      "sha256": "19e5a3b556de6f16fc4bb9ca4b332dfe152aedc33c13e04bb7e043d01dc243e0"
+    },
+    "G1_MAPPO_SEED3_C3_RESERVATION": {
+      "training_seed": 3,
+      "training_scenario": "randomized_4",
+      "checkpoint": "/Volumes/Expansion/safedrones_marllib_vec/randomized_4/seed3/checkpoints/final.pt",
+      "sha256": "e54bfeff454114642b3a8b51e17b975a7541f9b9871f1b561d817070921017d4"
+    },
+    "G1_MAPPO_SEED4_C3_RESERVATION": {
+      "training_seed": 4,
+      "training_scenario": "randomized_4",
+      "checkpoint": "/Volumes/Expansion/safedrones_marllib_vec/randomized_4/seed4/checkpoints/final.pt",
+      "sha256": "54787b55e08adffdb065131f2590bf379c096c0fc3d6aff054c620080c524098"
+    },
+    "G1_MAPPO_SEED5_C3_RESERVATION": {
+      "training_seed": 5,
+      "training_scenario": "randomized_4",
+      "checkpoint": "/Volumes/Expansion/safedrones_marllib_vec/randomized_4/seed5/checkpoints/final.pt",
+      "sha256": "37f6454cf3fe0e15583cd2c048a92ed0bb4cbf64b05120d40414da5499614eb7"
+    }
+  },
+  "shared_admission": {
+    "conflict_zone_id": "crossing_center",
+    "conflict_zone_center": [
+      0,
+      0
+    ],
+    "conflict_zone_radius_m": 2,
+    "admission_horizon_s": 3,
+    "reserve_threshold": 1,
+    "predicted_rho_warning": 0.2,
+    "fallback_d_safe_m": 1.6,
+    "hold_offset_m": 1.5,
+    "position_epsilon_m": 0.35
+  },
+  "reservation": {
+    "clearance_offset_m": 2.2,
+    "speed_epsilon_mps": 0.15,
+    "settle_steps": 5,
+    "ra_veto_streak_limit": 3,
+    "transit_scale": 0.6,
+    "clearance_rule": "goal_path_perpendicular_candidate_maximizes_remaining_path_and_stage_hold_clearance",
+    "terminal_sequence": "stage_settled_pass_goal_latch_clear_release_final_return"
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4,
+    "k2": 4,
+    "boundary_guard": 1,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "calibration_go_criteria": "G0和五个冻结MAPPO训练种子均须在1200步内完成完整Reservation生命周期与四机最终回归；MAPPO仅可控制C3已授权的PASS飞行器，其他状态使用C3确定性目标跟踪；每个条件collision=0、min_rho>0、selected QP infeasible=0、RA bypass=0、revoke_count=0、RA P99<50ms且deadline miss率<1%。",
+  "stopping_rule": "任一冻结MAPPO条件失败即为本次PASS-only角色的跨训练种子稳健复用No-Go；不得按当前任务结果挑选checkpoint，不调整RA、C3、初始状态、目标、冲突区、准入时域或1200步门。只有纯实现或基础设施错误允许同manifest修复重跑并保留无效记录。",
+  "claim_boundary": "v1已否决MAPPO执行完整HOLD/PASS/CLEAR/RETURN生命周期。v2仅让MAPPO在C3授权PASS时提供不可信名义二维速度；HOLD、CLEAR、FINAL_RETURN由C3确定性跟踪，所有动作仍由RA过滤。本calibration不是sealed论文证据，也不证明MAPPO自身安全。",
+  "parent_no_go": "/Volumes/Expansion/Aegis/c3_reservation_mappo_4uav_calibration_v1_retry3/conditions/01_G1_MAPPO_SEED1_C3_RESERVATION/calibration/summary.json"
+}
+

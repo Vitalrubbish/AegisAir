@@ -1,0 +1,20 @@
+{
+  "protocol_id": "aegisair-c2-prime-v1",
+  "phase": "calibration",
+  "rate_hz": 20.0,
+  "max_steps": 150,
+  "trials": [
+    {"trial_id": "cal01", "lateral_m": -0.30, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal02", "lateral_m": 0.30, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal03", "lateral_m": -0.20, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal04", "lateral_m": 0.20, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal05", "lateral_m": -0.10, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal06", "lateral_m": 0.10, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal07", "lateral_m": 0.00, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal08", "lateral_m": -0.25, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal09", "lateral_m": 0.25, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal10", "lateral_m": -0.15, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal11", "lateral_m": 0.15, "condition_order": ["E2_OBSERVE"]},
+    {"trial_id": "cal12", "lateral_m": 0.00, "condition_order": ["E2_OBSERVE"]}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "protocol_id": "aegisair-c2-predictive-v1",
+  "phase": "pilot",
+  "rate_hz": 20.0,
+  "max_steps": 150,
+  "predictive_contract": {
+    "safe_distance_m": 1.6,
+    "response_delay_s": 0.30,
+    "braking_deceleration_mps2": 2.0,
+    "recoverability_buffer_m": 0.20
+  },
+  "trials": [
+    {"trial_id": "pilot01", "lateral_m": 0.00, "condition_order": ["E2_FIXED", "E2_QP_GATE", "PREDICTIVE_GATE"]},
+    {"trial_id": "pilot02", "lateral_m": -0.10, "condition_order": ["E2_QP_GATE", "PREDICTIVE_GATE", "E2_FIXED"]},
+    {"trial_id": "pilot03", "lateral_m": 0.10, "condition_order": ["PREDICTIVE_GATE", "E2_FIXED", "E2_QP_GATE"]},
+    {"trial_id": "pilot04", "lateral_m": -0.20, "condition_order": ["PREDICTIVE_GATE", "E2_QP_GATE", "E2_FIXED"]},
+    {"trial_id": "pilot05", "lateral_m": 0.20, "condition_order": ["E2_FIXED", "PREDICTIVE_GATE", "E2_QP_GATE"]},
+    {"trial_id": "pilot06", "lateral_m": 0.00, "condition_order": ["E2_QP_GATE", "E2_FIXED", "PREDICTIVE_GATE"]}
+  ]
+}

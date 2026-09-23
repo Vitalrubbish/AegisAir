@@ -1,0 +1,42 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v4-px4-calibration-v1",
+  "phase": "development_calibration",
+  "purpose": "在独立 PX4 seed 上比较预测切换、仅事后切换、v3 硬刹车与 PB-only；不得并入 sealed 统计。",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, -0.5, 2.5], "3": [-4.0, 0.5, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.5, 2.5], "3": [4.0, -0.5, 2.5]},
+  "methods": {
+    "AEGIS_HOCBF_V4": {
+      "constraint_boundary": "full", "k1": 4.0, "k2": 4.0,
+      "boundary_guard": 1.0, "boundary_buffer_m": 0.30,
+      "barrier_model_tau_s": 0.70, "predictive_recovery": true,
+      "recovery_alpha": 0.5, "recovery_braking_accel_mps2": 2.0,
+      "recovery_boundary_buffer_m": 0.30, "recovery_clear_steps": 5
+    },
+    "AEGIS_HOCBF_V4_REACTIVE": {
+      "constraint_boundary": "full", "k1": 4.0, "k2": 4.0,
+      "boundary_guard": 1.0, "boundary_buffer_m": 0.30,
+      "barrier_model_tau_s": 0.70, "predictive_recovery": false,
+      "recovery_alpha": 0.5, "recovery_braking_accel_mps2": 2.0,
+      "recovery_boundary_buffer_m": 0.30, "recovery_clear_steps": 5
+    },
+    "AEGIS_HOCBF_V3": {
+      "constraint_boundary": "full", "k1": 4.0, "k2": 4.0,
+      "boundary_guard": 1.0, "boundary_buffer_m": 0.30,
+      "barrier_model_tau_s": 0.70, "infeasible_fallback": "max_brake"
+    },
+    "PB_CBF": {
+      "constraint_boundary": "static", "alpha": 0.5,
+      "braking_accel_mps2": 2.0, "boundary_buffer_m": 0.30,
+      "infeasible_fallback": "max_brake"
+    }
+  },
+  "trials": [
+    {"trial_id": "v4px4cal01", "seed": 8701, "condition_order": ["AEGIS_HOCBF_V4", "AEGIS_HOCBF_V4_REACTIVE", "AEGIS_HOCBF_V3", "PB_CBF"]}
+  ],
+  "stop_rule": "任一条件 collision、未完成或 min_rho<=0 即停止扩展；结果只用于选择是否继续设计。"
+}

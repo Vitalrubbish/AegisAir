@@ -1,0 +1,57 @@
+{
+  "protocol_id": "aegisair-c3-admission-4uav-calibration-smoke-v1",
+  "phase": "independent_calibration_not_sealed_evidence",
+  "gazebo_seed": 9511,
+  "rate_hz": 20.0,
+  "max_steps": 800,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [2, 3, 4, 5],
+  "scenario_id": "four_uav_simultaneous_crossing",
+  "reset_starts": {
+    "2": [-3.0, 0.8, 2.5],
+    "3": [3.0, -0.8, 2.5],
+    "4": [-3.0, -0.8, 2.5],
+    "5": [3.0, 0.8, 2.5]
+  },
+  "base_goals": {
+    "2": [3.0, -0.8, 2.5],
+    "3": [-3.0, 0.8, 2.5],
+    "4": [3.0, 0.8, 2.5],
+    "5": [-3.0, -0.8, 2.5]
+  },
+  "condition_order": ["R0_RA_ONLY", "R1_SEQUENTIAL_PASS", "R2_C3_ADMISSION"],
+  "c3_admission": {
+    "conflict_zone_id": "crossing_center",
+    "conflict_zone_center": [0.0, 0.0],
+    "conflict_zone_radius_m": 1.25,
+    "admission_horizon_s": 2.5,
+    "reserve_threshold": 1.0,
+    "predicted_rho_warning": 0.2,
+    "fallback_d_safe_m": 1.6,
+    "release_margin_m": 0.5,
+    "hold_offset_m": 1.5,
+    "hold_goal_epsilon_m": 0.35,
+    "calibration_status": "one_time_definition_before_any_sealed_seed"
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "calibration_go_criteria": "三条件均为有效启动且无物理碰撞、RA bypass=0、P99<50ms且deadline miss=0；R2触发在当前rho仍为正时，完整经过pending/hold/pass/release，冻结等待点不漂移，selected QP infeasible=0、min_rho>0并完成四机任务。R0/R1只作诊断比较，不要求完成或rho为正。",
+  "stopping_rule": "若R2有效episode未满足任一Go条件，则本次参数定义No-Go；不得调整RA参数。冲突区和2.5s时域只允许在sealed seed前基于本calibration决定一次是否冻结。",
+  "claim_boundary": "原C3仍只证明fail-closed orphan-goal recovery。本smoke仅校准新增事件触发准入分支，不是sealed论文证据。"
+}

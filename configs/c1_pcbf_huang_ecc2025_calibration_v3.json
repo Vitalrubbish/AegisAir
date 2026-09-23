@@ -1,0 +1,35 @@
+{
+  "protocol_id": "aegisair-c1-pcbf-huang-ecc2025-calibration-v3",
+  "phase": "development_calibration",
+  "purpose": "冻结使用真实二维距离、有限候选预测优化和 bounded-braking terminal recovery 的 PCBF external baseline；不得并入 sealed 统计。",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, -0.5, 2.5], "3": [-4.0, 0.5, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.5, 2.5], "3": [4.0, -0.5, 2.5]},
+  "methods": {
+    "PCBF_HUANG_ECC2025": {
+      "role": "PCBF nonlinear finite-candidate adaptation",
+      "constraint_boundary": "full",
+      "boundary_buffer_m": 0.0,
+      "horizon": 24,
+      "terminal_buffer_m": 0.10,
+      "terminal_velocity_tolerance_mps": 0.0,
+      "slack_weight": 20.0,
+      "tracking_weight": 0.05,
+      "lateral_candidates_mps2": [0.0, 0.5, 1.0, 1.5, 2.0],
+      "fail_closed": "max_brake"
+    }
+  },
+  "trials": [
+    {"trial_id": "pcbfcalv3_01", "seed": 12801, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcalv3_02", "seed": 12802, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcalv3_03", "seed": 12803, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcalv3_04", "seed": 12804, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcalv3_05", "seed": 12805, "condition_order": ["PCBF_HUANG_ECC2025"]}
+  ],
+  "acceptance": "五个有效 trial 均 mission_complete=true、collision=false、min_rho>=0、solver fail-closed=0、safety bypass=0，且 p99 solve latency<50 ms。",
+  "output_root": "/Volumes/Expansion/Aegis/c1_pcbf_huang_ecc2025_calibration_v3"
+}

@@ -1,0 +1,65 @@
+{
+  "protocol_id": "aegisair-c3-reservation-4uav-calibration-smoke-v1",
+  "phase": "new_falsifiable_protocol_calibration_not_sealed_evidence",
+  "parent_no_go": "/Volumes/Expansion/Aegis/c3_admission_4uav_calibration_smoke_v2_retry1/calibration/summary.json",
+  "gazebo_seed": 9521,
+  "rate_hz": 20.0,
+  "max_steps": 1200,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [2, 3, 4, 5],
+  "scenario_id": "four_uav_simultaneous_crossing_terminal_occupancy",
+  "reset_starts": {
+    "2": [-3.0, 0.8, 2.5],
+    "3": [3.0, -0.8, 2.5],
+    "4": [-3.0, -0.8, 2.5],
+    "5": [3.0, 0.8, 2.5]
+  },
+  "base_goals": {
+    "2": [3.0, -0.8, 2.5],
+    "3": [-3.0, 0.8, 2.5],
+    "4": [3.0, 0.8, 2.5],
+    "5": [-3.0, -0.8, 2.5]
+  },
+  "condition_order": ["R2_C3_ADMISSION", "R3_C3_RESERVATION"],
+  "shared_admission": {
+    "conflict_zone_id": "crossing_center",
+    "conflict_zone_center": [0.0, 0.0],
+    "conflict_zone_radius_m": 2.0,
+    "admission_horizon_s": 3.0,
+    "reserve_threshold": 1.0,
+    "predicted_rho_warning": 0.2,
+    "fallback_d_safe_m": 1.6,
+    "hold_offset_m": 1.5,
+    "position_epsilon_m": 0.35
+  },
+  "reservation": {
+    "clearance_offset_m": 2.2,
+    "speed_epsilon_mps": 0.15,
+    "settle_steps": 5,
+    "ra_veto_streak_limit": 3,
+    "transit_scale": 0.6,
+    "clearance_rule": "goal_path_perpendicular_candidate_maximizes_remaining_path_and_stage_hold_clearance",
+    "terminal_sequence": "stage_settled_pass_goal_latch_clear_release_final_return"
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "calibration_go_criteria": "R3必须在1200步内完整出现staging/pass/clear/release/final_return/complete，四机service_latched、cleared、final_returned均完整，最终四机位于原目标容差内；collision=0、min_rho>0、selected QP infeasible=0、RA bypass=0、revoke_count=0；RA P99<50ms且deadline miss率<1%。R2仅作同条件诊断基线。",
+  "stopping_rule": "若R3任一安全、权限、状态完整性或任务门失败，则本次新机制No-Go；不调整RA、初始状态、目标、冲突区或准入时域。只有纯实现错误可以修复并以同一manifest重跑，且保留无效启动/实现错误记录。",
+  "claim_boundary": "本calibration只检验终点占用感知清空能否修复四机交换任务；不是sealed论文证据，不改变原C3 orphan-goal结果或C3-Admission v2 No-Go。"
+}

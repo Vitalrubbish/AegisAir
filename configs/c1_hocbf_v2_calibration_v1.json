@@ -1,0 +1,35 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v2-boundary-growth-calibration-v1",
+  "phase": "calibration",
+  "parent_no_go": "aegisair-c1-sota-cbf-active-validation-v1",
+  "structural_change": "one-step execution-model prediction of dynamic-boundary growth plus a frozen geometric buffer",
+  "seeds": [7301, 7302, 7303, 7304, 7305],
+  "scenarios": ["head_on", "crossing", "multi_uav"],
+  "max_steps": 300,
+  "dt_s": 0.05,
+  "start_goal_noise_m": 0.10,
+  "nominal_velocity_noise_mps": 0.20,
+  "execution_tau_s": 0.70,
+  "common": {
+    "v_max_mps": 1.5,
+    "a_max_mps2": 2.0,
+    "kv": 2.0,
+    "barrier_model_tau_s": 0.70,
+    "command_feedforward_tau_s": 0.70,
+    "observation_mode": "shared_current",
+    "qp_max_iters": 500
+  },
+  "hocbf_v2_grid": {
+    "k1": 4.0,
+    "k2": 6.0,
+    "boundary_guard": [0.5, 1.0, 1.5, 2.0],
+    "boundary_buffer_m": [0.0, 0.01, 0.02, 0.03]
+  },
+  "selection_rule": [
+    "minimize_collision_count",
+    "minimize_common_reference_boundary_violation_count",
+    "minimize_qp_infeasible_steps",
+    "maximize_completion_count",
+    "minimize_mean_control_effort"
+  ]
+}

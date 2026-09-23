@@ -1,0 +1,29 @@
+{
+  "protocol_id": "aegisair-c1-pcbf-huang-ecc2025-development-v3",
+  "phase": "development_only",
+  "purpose": "验证使用真实二维距离与有限候选预测优化的 PCBF baseline；不属于 calibration 或 sealed evidence。",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, -0.5, 2.5], "3": [-4.0, 0.5, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.5, 2.5], "3": [4.0, -0.5, 2.5]},
+  "methods": {
+    "PCBF_HUANG_ECC2025": {
+      "role": "PCBF nonlinear finite-candidate adaptation",
+      "constraint_boundary": "full",
+      "boundary_buffer_m": 0.0,
+      "horizon": 24,
+      "terminal_buffer_m": 0.10,
+      "terminal_velocity_tolerance_mps": 0.0,
+      "slack_weight": 20.0,
+      "tracking_weight": 0.05,
+      "fail_closed": "max_brake"
+    }
+  },
+  "trials": [
+    {"trial_id": "pcbfdevv3_01", "seed": 12702, "condition_order": ["PCBF_HUANG_ECC2025"]}
+  ],
+  "output_root": "/Volumes/Expansion/Aegis/c1_pcbf_huang_ecc2025_development_v3"
+}

@@ -1,0 +1,21 @@
+{
+  "protocol_id": "aegisair-c2-prime-v2-current-head",
+  "phase": "validation",
+  "rate_hz": 20.0,
+  "max_steps": 150,
+  "calibration_sha256": "36ee0672c54aeb4151fc9ad04b56d06240b090f9830acb87f5e4c404af15e68f",
+  "trials": [
+    {"trial_id":"c2v2_01","seed":8101,"lateral_m":0.00,"condition_order":["E2_FIXED","E2_QP_GATE","C2_PRIME"]},
+    {"trial_id":"c2v2_02","seed":8102,"lateral_m":-0.10,"condition_order":["E2_FIXED","C2_PRIME","E2_QP_GATE"]},
+    {"trial_id":"c2v2_03","seed":8103,"lateral_m":0.10,"condition_order":["E2_QP_GATE","E2_FIXED","C2_PRIME"]},
+    {"trial_id":"c2v2_04","seed":8104,"lateral_m":-0.20,"condition_order":["E2_QP_GATE","C2_PRIME","E2_FIXED"]},
+    {"trial_id":"c2v2_05","seed":8105,"lateral_m":0.20,"condition_order":["C2_PRIME","E2_FIXED","E2_QP_GATE"]},
+    {"trial_id":"c2v2_06","seed":8106,"lateral_m":0.00,"condition_order":["C2_PRIME","E2_QP_GATE","E2_FIXED"]},
+    {"trial_id":"c2v2_07","seed":8107,"lateral_m":0.00,"condition_order":["E2_FIXED","E2_QP_GATE","C2_PRIME"]},
+    {"trial_id":"c2v2_08","seed":8108,"lateral_m":-0.10,"condition_order":["E2_FIXED","C2_PRIME","E2_QP_GATE"]},
+    {"trial_id":"c2v2_09","seed":8109,"lateral_m":0.10,"condition_order":["E2_QP_GATE","E2_FIXED","C2_PRIME"]},
+    {"trial_id":"c2v2_10","seed":8110,"lateral_m":-0.20,"condition_order":["E2_QP_GATE","C2_PRIME","E2_FIXED"]},
+    {"trial_id":"c2v2_11","seed":8111,"lateral_m":0.20,"condition_order":["C2_PRIME","E2_FIXED","E2_QP_GATE"]},
+    {"trial_id":"c2v2_12","seed":8112,"lateral_m":0.00,"condition_order":["C2_PRIME","E2_QP_GATE","E2_FIXED"]}
+  ]
+}

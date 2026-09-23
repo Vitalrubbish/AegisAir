@@ -1,0 +1,57 @@
+{
+  "protocol_id": "aegisair-c1-sota-cbf-active-validation-v2-boundary-growth",
+  "phase": "validation",
+  "parent_no_go": "aegisair-c1-sota-cbf-active-validation-v1",
+  "calibration_artifacts": {
+    "hocbf_v2": "/Volumes/Expansion/Aegis/c1_hocbf_v2_boundary_growth_calibration_v1.json",
+    "zocbf_pb_cbf": "/Volumes/Expansion/Aegis/c1_sota_cbf_calibration_v4_method_faithful.json"
+  },
+  "scenarios": ["head_on", "crossing", "multi_uav"],
+  "max_steps": 300,
+  "dt_s": 0.05,
+  "start_goal_noise_m": 0.10,
+  "nominal_velocity_noise_mps": 0.20,
+  "execution_tau_s": 0.70,
+  "common": {
+    "v_max_mps": 1.5,
+    "a_max_mps2": 2.0,
+    "kv": 2.0,
+    "command_feedforward_tau_s": 0.70,
+    "observation_mode": "shared_current",
+    "qp_max_iters": 500
+  },
+  "methods": {
+    "VELOCITY_CBF": {"constraint_boundary":"static","alpha":1.0},
+    "ZOCBF": {"constraint_boundary":"static","barrier_model_tau_s":0.70,"gamma":0.10,"delta_m":0.05},
+    "PB_CBF": {"constraint_boundary":"static","alpha":1.0,"braking_accel_mps2":3.0},
+    "AEGIS_HOCBF_V2": {"constraint_boundary":"full","k1":4.0,"k2":6.0,"boundary_guard":0.5,"boundary_buffer_m":0.0,"barrier_model_tau_s":0.70}
+  },
+  "trials": [
+    {"trial_id":"cbfv2_01","seed":7501,"condition_order":["VELOCITY_CBF","ZOCBF","PB_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfv2_02","seed":7502,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfv2_03","seed":7503,"condition_order":["PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF"]},
+    {"trial_id":"cbfv2_04","seed":7504,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF","PB_CBF"]},
+    {"trial_id":"cbfv2_05","seed":7505,"condition_order":["VELOCITY_CBF","ZOCBF","PB_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfv2_06","seed":7506,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfv2_07","seed":7507,"condition_order":["PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF"]},
+    {"trial_id":"cbfv2_08","seed":7508,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF","PB_CBF"]},
+    {"trial_id":"cbfv2_09","seed":7509,"condition_order":["VELOCITY_CBF","ZOCBF","PB_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfv2_10","seed":7510,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfv2_11","seed":7511,"condition_order":["PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF"]},
+    {"trial_id":"cbfv2_12","seed":7512,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF","PB_CBF"]},
+    {"trial_id":"cbfv2_13","seed":7513,"condition_order":["VELOCITY_CBF","ZOCBF","PB_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfv2_14","seed":7514,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfv2_15","seed":7515,"condition_order":["PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF"]},
+    {"trial_id":"cbfv2_16","seed":7516,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF","PB_CBF"]},
+    {"trial_id":"cbfv2_17","seed":7517,"condition_order":["VELOCITY_CBF","ZOCBF","PB_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfv2_18","seed":7518,"condition_order":["ZOCBF","PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfv2_19","seed":7519,"condition_order":["PB_CBF","AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF"]},
+    {"trial_id":"cbfv2_20","seed":7520,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF","ZOCBF","PB_CBF"]}
+  ],
+  "go_criteria": {
+    "absolute": "AEGIS_HOCBF_V2 has 0 collisions, 0 common-reference violations, 60/60 completion, and nonzero interventions",
+    "versus_velocity": "equal safety and completion counts, plus paired cluster-bootstrap 95% CI upper bound below zero for either intervention count or control effort",
+    "versus_sota": "no worse collision, violation, and completion counts than both ZOCBF and PB_CBF, with a strict advantage on at least one count for each"
+  },
+  "stopping_rule": "Do not alter parameters, drop trials, or append seeds after reading validation results."
+}

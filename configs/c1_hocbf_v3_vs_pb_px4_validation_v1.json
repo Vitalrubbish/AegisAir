@@ -1,0 +1,23 @@
+{
+  "protocol_id":"aegisair-c1-hocbf-v3-vs-pb-px4-validation-v1",
+  "phase":"sealed_validation","rate_hz":20.0,"max_steps":400,"goal_epsilon":0.5,"execution_tau_s":0.70,
+  "drone_ids":[2,3],"base_goals":{"2":[4.0,-0.5,2.5],"3":[-4.0,0.5,2.5]},"reset_starts":{"2":[-4.0,0.5,2.5],"3":[4.0,-0.5,2.5]},
+  "methods":{
+    "AEGIS_HOCBF_V3":{"constraint_boundary":"full","k1":4.0,"k2":4.0,"boundary_guard":1.0,"boundary_buffer_m":0.30,"barrier_model_tau_s":0.70,"infeasible_fallback":"max_brake"},
+    "PB_CBF":{"constraint_boundary":"static","alpha":0.5,"braking_accel_mps2":2.0,"boundary_buffer_m":0.30,"infeasible_fallback":"max_brake"}
+  },
+  "trials":[
+    {"trial_id":"pbpx4_01","seed":8401,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_02","seed":8402,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_03","seed":8403,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_04","seed":8404,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_05","seed":8405,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_06","seed":8406,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_07","seed":8407,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_08","seed":8408,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_09","seed":8409,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_10","seed":8410,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_11","seed":8411,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_12","seed":8412,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_13","seed":8413,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_14","seed":8414,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_15","seed":8415,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_16","seed":8416,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_17","seed":8417,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_18","seed":8418,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"pbpx4_19","seed":8419,"condition_order":["AEGIS_HOCBF_V3","PB_CBF"]},{"trial_id":"pbpx4_20","seed":8420,"condition_order":["PB_CBF","AEGIS_HOCBF_V3"]}
+  ],
+  "go_gate":"both methods 20/20 complete, collision=0, min_rho>0; paired comparison reports rho, interventions, infeasibility, effort and path",
+  "stopping_rule":"Stop immediately if either method has collision, incomplete mission, or min_rho<=0."
+}

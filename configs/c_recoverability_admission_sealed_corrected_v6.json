@@ -1,0 +1,969 @@
+{
+  "protocol_id": "aegisair-c-recoverability-admission-sealed-corrected-v6",
+  "phase": "修 bug 后正式重跑原二十案例；不是新增独立盲测",
+  "rate_hz": 20.0,
+  "max_steps": 800,
+  "goal_epsilon": 0.55,
+  "drone_ids": [
+    2,
+    3
+  ],
+  "failed_drone": 2,
+  "mission_change": {
+    "kind": "fail_drone",
+    "drone": 2
+  },
+  "change_step": 30,
+  "velocity_command_mode": "feedforward_tau",
+  "tau_command_s": 0.7,
+  "conditions": [
+    "IMMEDIATE_COMMIT_RA",
+    "RECOVERABILITY_ADMISSION_RA",
+    "RA_ONLY_HOLD"
+  ],
+  "recoverability_admission": {
+    "model": "time_aligned_dynamic_rollout_v2",
+    "clearance_m": 2.4,
+    "tracking_error_buffer_m": 0.2,
+    "braking_accel_mps2": 2.0,
+    "braking_accel_uncertainty_mps2": 0.25,
+    "ring_extra_m": [
+      0.4,
+      0.8,
+      1.2
+    ],
+    "ring_samples": 32,
+    "arena": [
+      -6.0,
+      6.0,
+      -6.0,
+      6.0
+    ],
+    "waypoint_epsilon_m": 0.55,
+    "max_route_length_m": 18.0,
+    "dt_s": 0.05,
+    "rollout_horizon_s": 16.0,
+    "reaction_delay_s": 0.05,
+    "goal_gain_s_inv": 1.5,
+    "velocity_gain_s_inv": 2.0,
+    "healthy_velocity_limit_mps": 1.5,
+    "healthy_acceleration_limit_mps2": 2.0,
+    "execution_tau_s": 0.7,
+    "command_feedforward_tau_s": 0.7,
+    "terminal_speed_mps": 0.15,
+    "stabilization_wait_s": 2.0,
+    "stabilization_speed_margin_mps": 0.05,
+    "stabilization_consecutive_samples": 3,
+    "arc_extra_m": [
+      1.4
+    ],
+    "arc_segments": [
+      5,
+      8
+    ]
+  },
+  "ra_config": {
+    "tau_ctrl_s": 0.2,
+    "execution_tau_s": 0.7,
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "geometries": {
+    "s01": {
+      "reset_starts": {
+        "2": [
+          -2.4,
+          -2.2,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.6,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.2,
+          -2.2,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.6,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.2,
+        -2.2
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s02": {
+      "reset_starts": {
+        "2": [
+          -2.2,
+          -1.5,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.2,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.4,
+          -1.5,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.2,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.4,
+        -1.5
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s03": {
+      "reset_starts": {
+        "2": [
+          -2.0,
+          -0.8,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.6,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.6,
+          -0.8,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.6,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.6,
+        -0.8
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s04": {
+      "reset_starts": {
+        "2": [
+          -1.8,
+          0.0,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.8,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.8,
+          0.0,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.8,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.8,
+        0.0
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s05": {
+      "reset_starts": {
+        "2": [
+          -1.6,
+          0.8,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.4,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          4.0,
+          0.8,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.4,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        4.0,
+        0.8
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s06": {
+      "reset_starts": {
+        "2": [
+          -1.4,
+          1.6,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.0,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          4.2,
+          1.6,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.0,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        4.2,
+        1.6
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s07": {
+      "reset_starts": {
+        "2": [
+          -2.3,
+          2.3,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -1.8,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.3,
+          2.3,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -1.8,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.3,
+        2.3
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s08": {
+      "reset_starts": {
+        "2": [
+          -2.1,
+          1.9,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.7,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.5,
+          1.9,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.7,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.5,
+        1.9
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s09": {
+      "reset_starts": {
+        "2": [
+          -1.9,
+          -1.9,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.0,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.7,
+          -1.9,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.0,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.7,
+        -1.9
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s10": {
+      "reset_starts": {
+        "2": [
+          -1.7,
+          -1.1,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.8,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.9,
+          -1.1,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.8,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.9,
+        -1.1
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s11": {
+      "reset_starts": {
+        "2": [
+          -1.3,
+          0.4,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.9,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          4.1,
+          0.4,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.9,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        4.1,
+        0.4
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s12": {
+      "reset_starts": {
+        "2": [
+          -0.9,
+          2.2,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -1.0,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          4.3,
+          2.2,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -1.0,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        4.3,
+        2.2
+      ],
+      "world": "S1",
+      "expected_admission": "admit"
+    },
+    "s13": {
+      "reset_starts": {
+        "2": [
+          2.5,
+          2.0,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.2,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          2.5,
+          2.0,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.2,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        2.5,
+        2.0
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s14": {
+      "reset_starts": {
+        "2": [
+          2.5,
+          -2.0,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.2,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          2.5,
+          -2.0,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.2,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        2.5,
+        -2.0
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s15": {
+      "reset_starts": {
+        "2": [
+          1.0,
+          2.5,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -1.5,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          1.0,
+          2.5,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -1.5,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        1.0,
+        2.5
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s16": {
+      "reset_starts": {
+        "2": [
+          1.0,
+          -2.5,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          1.5,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          1.0,
+          -2.5,
+          2.5
+        ],
+        "3": [
+          4.0,
+          1.5,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        1.0,
+        -2.5
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s17": {
+      "reset_starts": {
+        "2": [
+          0.0,
+          1.5,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.0,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          0.0,
+          1.5,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.0,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        0.0,
+        1.5
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s18": {
+      "reset_starts": {
+        "2": [
+          0.0,
+          -1.5,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.0,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          0.0,
+          -1.5,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.0,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        0.0,
+        -1.5
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s19": {
+      "reset_starts": {
+        "2": [
+          3.0,
+          0.8,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          -2.5,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.0,
+          0.8,
+          2.5
+        ],
+        "3": [
+          4.0,
+          -2.5,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.0,
+        0.8
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    },
+    "s20": {
+      "reset_starts": {
+        "2": [
+          3.0,
+          -0.8,
+          2.5
+        ],
+        "3": [
+          -4.0,
+          2.5,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          3.0,
+          -0.8,
+          2.5
+        ],
+        "3": [
+          4.0,
+          2.5,
+          2.5
+        ]
+      },
+      "critical_goal": [
+        3.0,
+        -0.8
+      ],
+      "world": "S1",
+      "expected_admission": "reject"
+    }
+  },
+  "trials": [
+    {
+      "trial_id": "radms01",
+      "geometry_id": "s01",
+      "seed": 13201,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms02",
+      "geometry_id": "s02",
+      "seed": 13202,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    },
+    {
+      "trial_id": "radms03",
+      "geometry_id": "s03",
+      "seed": 13203,
+      "condition_order": [
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA"
+      ]
+    },
+    {
+      "trial_id": "radms04",
+      "geometry_id": "s04",
+      "seed": 13204,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RA_ONLY_HOLD",
+        "RECOVERABILITY_ADMISSION_RA"
+      ]
+    },
+    {
+      "trial_id": "radms05",
+      "geometry_id": "s05",
+      "seed": 13205,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "IMMEDIATE_COMMIT_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms06",
+      "geometry_id": "s06",
+      "seed": 13206,
+      "condition_order": [
+        "RA_ONLY_HOLD",
+        "RECOVERABILITY_ADMISSION_RA",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    },
+    {
+      "trial_id": "radms07",
+      "geometry_id": "s07",
+      "seed": 13207,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms08",
+      "geometry_id": "s08",
+      "seed": 13208,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    },
+    {
+      "trial_id": "radms09",
+      "geometry_id": "s09",
+      "seed": 13209,
+      "condition_order": [
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA"
+      ]
+    },
+    {
+      "trial_id": "radms10",
+      "geometry_id": "s10",
+      "seed": 13210,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RA_ONLY_HOLD",
+        "RECOVERABILITY_ADMISSION_RA"
+      ]
+    },
+    {
+      "trial_id": "radms11",
+      "geometry_id": "s11",
+      "seed": 13211,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "IMMEDIATE_COMMIT_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms12",
+      "geometry_id": "s12",
+      "seed": 13212,
+      "condition_order": [
+        "RA_ONLY_HOLD",
+        "RECOVERABILITY_ADMISSION_RA",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    },
+    {
+      "trial_id": "radms13",
+      "geometry_id": "s13",
+      "seed": 13213,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms14",
+      "geometry_id": "s14",
+      "seed": 13214,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    },
+    {
+      "trial_id": "radms15",
+      "geometry_id": "s15",
+      "seed": 13215,
+      "condition_order": [
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA"
+      ]
+    },
+    {
+      "trial_id": "radms16",
+      "geometry_id": "s16",
+      "seed": 13216,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RA_ONLY_HOLD",
+        "RECOVERABILITY_ADMISSION_RA"
+      ]
+    },
+    {
+      "trial_id": "radms17",
+      "geometry_id": "s17",
+      "seed": 13217,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "IMMEDIATE_COMMIT_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms18",
+      "geometry_id": "s18",
+      "seed": 13218,
+      "condition_order": [
+        "RA_ONLY_HOLD",
+        "RECOVERABILITY_ADMISSION_RA",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    },
+    {
+      "trial_id": "radms19",
+      "geometry_id": "s19",
+      "seed": 13219,
+      "condition_order": [
+        "IMMEDIATE_COMMIT_RA",
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD"
+      ]
+    },
+    {
+      "trial_id": "radms20",
+      "geometry_id": "s20",
+      "seed": 13220,
+      "condition_order": [
+        "RECOVERABILITY_ADMISSION_RA",
+        "RA_ONLY_HOLD",
+        "IMMEDIATE_COMMIT_RA"
+      ]
+    }
+  ],
+  "sealed_go_criteria": "20/20 admission conditions 必须按 expected_admission 正确准入或拒绝并通过全部安全、权限、实时性门；20/20 RA-only hold 必须安全且零故障后 coverage；anti-vacuity 必须成立。Immediate comparator 原样报告。",
+  "stopping_rule": "sealed manifest 写入后不可修改参数、几何、条件、seed、样本量或时域；基础设施无效启动仅允许同 manifest/seed 隔离重启；有效失败原样进入最终决策。",
+  "claim_boundary": "即使 GO，也只支持本 sealed 参数化双机失效包络内的 selective recovery，不是任意几何、任意规模或真机安全保证。",
+  "historical_parent_qualification_sha256": "1c8d45be8a0b109d2c7907503c967e7db03645ef9a25769d838edcef66d17725",
+  "implementation_version": "dynamic_admission_v6_arc_candidates_probe",
+  "adapter_mqtt_publish_mode": "nonblocking_enqueue_rc_checked",
+  "parent_qualification_root": "/Volumes/Expansion/Aegis/drones_corrected_admission_qualification_v6_20260923",
+  "parent_qualification_sha256": "f7ab7a4c55001ba63bcfc6706fa1b1a99a38fb06c2408cba342a2039a7904f17",
+  "parent_qualification_audit_sha256": "914583265e08514f04598e506b0e3ca2ae077000c5152c0895aef3284a299efc",
+  "original_case_source_sha256": "bb9ca756d1d5fcb80b00227d32f3d5d424c49af9812bde7f07f32c196c2b3870",
+  "corrected_scope": "沿用原几何、预期决策、seed、条件顺序、样本量与时域；使用本轮 v6 动态模型，不混用旧静态障碍采样参数。",
+  "revision_id": "admission-corrected-v6",
+  "stabilization_revision": {
+    "protocol_id": "aegisair-admission-stabilize-reevaluate-v5",
+    "supersedes": "dynamic_admission_v4_nonblocking_bridge only for new evidence; prior valid refusal remains archived",
+    "trigger": "Only when a healthy UAV's measured horizontal velocity exceeds the unchanged 1.5 m/s component limit at the failure event",
+    "hold": "Freeze the healthy UAV's goal at its failure-event position, command zero nominal velocity, and continue RA filtering",
+    "stabilization_wait_s": 2.0,
+    "stabilization_speed_margin_mps": 0.05,
+    "stabilization_consecutive_samples": 3,
+    "recheck": "After three consecutive measured samples with each horizontal velocity component <=1.45 m/s, evaluate the existing dynamic gate exactly once from the current measured states and failed-vehicle braking envelope",
+    "timeout": "At 2.0 s without stability, reject permanently and retain safe hold; missing or non-finite velocity cannot count as stable",
+    "preserve": "Original v4 geometry, seeds, order, RA settings, clearance, route candidates, rollout, and valid negative result are unchanged",
+    "sequence": "Run all calibration conditions from first seed in a new output root; only GO permits qualification, only qualification GO permits sealed and dependent comparison",
+    "stop_rule": "After completing a paired case, an admission or safe-hold failure stops dependent later cases; valid baselines remain results, infrastructure invalidity is retried same seed, and no effective failure is discarded"
+  },
+  "stabilization_revision_sha256": "c789a0c1c9e3c0f4e9c043d77cba0f1f0aac6d6c6ff0b3d03a6872088428fcd3",
+  "arc_revision": {
+    "protocol_id": "aegisair-admission-arc-development-v6",
+    "method": "Retain v5 stabilization and all original gates; append two directions of 5- and 8-segment arcs around the predicted failed-vehicle braking endpoint at effective clearance plus 1.4 m.",
+    "arc_extra_m": [
+      1.4
+    ],
+    "arc_segments": [
+      5,
+      8
+    ],
+    "calibration_source": "c_recoverability_admission_calibration_v4.json",
+    "qualification_source": "c_recoverability_admission_qualification_v4.json",
+    "known_probe": "The bottleneck seed 13303 single-condition v6 probe succeeded after observing the valid v5 refusal; it is exploratory and is not reused as formal development evidence.",
+    "preserve": "Original geometry, seeds, expected labels, condition order, all speed/acceleration, clearance, route-length, rollout, RA, and v5 stabilization settings.",
+    "sequence": "New-root full paired calibration from first case; only complete calibration GO permits the untouched qualification geometry and seeds; only qualification GO permits corrected sealed and dependent comparison.",
+    "stop_rule": "After each complete paired case, stop dependent conditions on a valid admission or hold failure; retain all valid baseline and negative outcomes. Only infrastructure-invalid attempts may be retried at the same seed and condition. Never relabel, loosen a bound, or rerun a valid failure until it passes."
+  },
+  "arc_revision_sha256": "5154d2ea61b8695a7978d94f6075dd4bf1f962c2e87071752cdfca4caf0bc3ef"
+}

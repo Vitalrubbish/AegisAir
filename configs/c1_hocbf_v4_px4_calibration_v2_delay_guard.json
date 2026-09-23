@@ -1,0 +1,28 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v4-px4-calibration-v2",
+  "phase": "development_calibration",
+  "purpose": "检验一拍命令管线延迟守卫是否在 HOCBF 主 QP 失可行前触发；复用诊断 seed 仅作机制比较，不得并入 sealed 统计。",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, -0.5, 2.5], "3": [-4.0, 0.5, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.5, 2.5], "3": [4.0, -0.5, 2.5]},
+  "methods": {
+    "AEGIS_HOCBF_V4": {
+      "constraint_boundary": "full", "k1": 4.0, "k2": 4.0,
+      "boundary_guard": 1.0, "boundary_buffer_m": 0.30,
+      "barrier_model_tau_s": 0.70, "predictive_recovery": true,
+      "prediction_execution_fraction": 0.0,
+      "prediction_steps": 3,
+      "recovery_reserve_threshold": 1.0,
+      "recovery_alpha": 0.5, "recovery_braking_accel_mps2": 2.0,
+      "recovery_boundary_buffer_m": 0.30, "recovery_clear_steps": 5
+    }
+  },
+  "trials": [
+    {"trial_id": "v4px4delay01", "seed": 8701, "condition_order": ["AEGIS_HOCBF_V4"]}
+  ],
+  "stop_rule": "collision、未完成或 min_rho<=0 即停止；必须确认首次 recovery_reason=predictive_infeasible 才算机制成立。"
+}

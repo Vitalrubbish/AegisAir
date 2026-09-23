@@ -1,0 +1,41 @@
+{
+  "protocol_id": "aegisair-c3-closed-loop-v3-hocbf-v4-smoke-v1",
+  "phase": "smoke",
+  "scenario": "drone_failure_fail_closed_recovery",
+  "rate_hz": 20.0,
+  "max_steps": 600,
+  "goal_epsilon": 0.5,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, 0.0, 2.5], "3": [4.0, -2.0, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.0, 2.5], "3": [-4.0, -2.0, 2.5]},
+  "mission_change": {"kind": "fail_drone", "drone": 2},
+  "change_step": 30,
+  "failed_drone": 2,
+  "critical_goal": [4.0, 0.0],
+  "ra_config": {
+    "tau_ctrl_s": 0.20,
+    "execution_tau_s": 0.70,
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.30,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.30,
+    "recovery_clear_steps": 5
+  },
+  "trials": [
+    {"trial_id": "c3v4s01", "seed": 9411, "condition_order": ["R0", "R1"]},
+    {"trial_id": "c3v4s02", "seed": 9412, "condition_order": ["R1", "R0"]},
+    {"trial_id": "c3v4s03", "seed": 9413, "condition_order": ["R0", "R1"]}
+  ],
+  "go_criteria": {
+    "closure": "R0 不得覆盖 orphan critical goal；R1 必须覆盖。",
+    "safety": "所有 episode collision=0、min_rho>0、safety bypass=0。",
+    "mechanism": "R1 recovery_step>=change_step，且 counters.mission_changes=1、plans_committed>=1。"
+  },
+  "stopping_rule": "任一 episode collision、min_rho<=0、或 safety bypass 非零时停止；不得修改冻结参数。"
+}

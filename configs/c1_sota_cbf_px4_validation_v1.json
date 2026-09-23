@@ -1,0 +1,38 @@
+{
+  "protocol_id": "aegisair-c1-sota-cbf-px4-validation-v1",
+  "phase": "sealed_validation",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2":[4.0,-0.5,2.5],"3":[-4.0,0.5,2.5]},
+  "reset_starts": {"2":[-4.0,0.5,2.5],"3":[4.0,-0.5,2.5]},
+  "methods": {
+    "VELOCITY_CBF": {"constraint_boundary":"static","alpha":1.0},
+    "AEGIS_HOCBF_V2": {"constraint_boundary":"full","k1":4.0,"k2":6.0,"boundary_guard":0.5,"boundary_buffer_m":0.0,"barrier_model_tau_s":0.70}
+  },
+  "trials": [
+    {"trial_id":"cbfpx4v01","seed":7701,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v02","seed":7702,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v03","seed":7703,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v04","seed":7704,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v05","seed":7705,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v06","seed":7706,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v07","seed":7707,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v08","seed":7708,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v09","seed":7709,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v10","seed":7710,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v11","seed":7711,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v12","seed":7712,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v13","seed":7713,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v14","seed":7714,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v15","seed":7715,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v16","seed":7716,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v17","seed":7717,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v18","seed":7718,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]},
+    {"trial_id":"cbfpx4v19","seed":7719,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V2"]},
+    {"trial_id":"cbfpx4v20","seed":7720,"condition_order":["AEGIS_HOCBF_V2","VELOCITY_CBF"]}
+  ],
+  "go_gate": "both methods: 20/20 mission_complete, collision=0, min_rho>0; paired comparison reports interventions, QP infeasibility, and control effort without changing the common rho reference"
+}

@@ -1,0 +1,39 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v3-px4-validation-v1",
+  "phase": "sealed_validation",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2,3],
+  "base_goals": {"2":[4.0,-0.5,2.5],"3":[-4.0,0.5,2.5]},
+  "reset_starts": {"2":[-4.0,0.5,2.5],"3":[4.0,-0.5,2.5]},
+  "methods": {
+    "VELOCITY_CBF":{"constraint_boundary":"static","alpha":1.0},
+    "AEGIS_HOCBF_V3":{"constraint_boundary":"full","k1":4.0,"k2":4.0,"boundary_guard":1.0,"boundary_buffer_m":0.30,"barrier_model_tau_s":0.70,"infeasible_fallback":"max_brake"}
+  },
+  "trials": [
+    {"trial_id":"cbfv3px4_01","seed":8001,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_02","seed":8002,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_03","seed":8003,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_04","seed":8004,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_05","seed":8005,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_06","seed":8006,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_07","seed":8007,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_08","seed":8008,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_09","seed":8009,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_10","seed":8010,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_11","seed":8011,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_12","seed":8012,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_13","seed":8013,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_14","seed":8014,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_15","seed":8015,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_16","seed":8016,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_17","seed":8017,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_18","seed":8018,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3px4_19","seed":8019,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3px4_20","seed":8020,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]}
+  ],
+  "go_gate": "both methods: 20/20 complete, collision=0, min_rho>0; AEGIS_HOCBF_V3 has nonzero interventions; report all QP infeasible fallback steps",
+  "stopping_rule": "Stop immediately if any AEGIS_HOCBF_V3 episode has collision, incomplete mission, or min_rho<=0. Do not alter parameters or append seeds."
+}

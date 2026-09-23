@@ -1,0 +1,19 @@
+{
+  "protocol_id":"aegisair-c1-hocbf-v4-certificate-calibration-v1",
+  "phase":"independent_execution_envelope_calibration",
+  "rate_hz":20.0,"max_steps":400,"goal_epsilon":0.5,"execution_tau_s":0.70,
+  "drone_ids":[2,3],
+  "base_goals":{"2":[4.0,-0.5,2.5],"3":[-4.0,0.5,2.5]},
+  "reset_starts":{"2":[-4.0,0.5,2.5],"3":[4.0,-0.5,2.5]},
+  "scenarios":{"nominal":{"description":"仅用于冻结一周期 PB 约束执行失配包络。"}},
+  "methods":{"AEGIS_HOCBF_V4":{"constraint_boundary":"full","k1":4.0,"k2":4.0,"boundary_guard":1.0,"boundary_buffer_m":0.30,"barrier_model_tau_s":0.70,"predictive_recovery":true,"prediction_execution_fraction":0.0,"prediction_steps":3,"recovery_reserve_threshold":1.0,"recovery_alpha":0.5,"recovery_braking_accel_mps2":2.0,"recovery_boundary_buffer_m":0.30,"recovery_clear_steps":5}},
+  "trials":[
+    {"trial_id":"certcal01","scenario_id":"nominal","seed":9401,"condition_order":["AEGIS_HOCBF_V4"]},
+    {"trial_id":"certcal02","scenario_id":"nominal","seed":9402,"condition_order":["AEGIS_HOCBF_V4"]},
+    {"trial_id":"certcal03","scenario_id":"nominal","seed":9403,"condition_order":["AEGIS_HOCBF_V4"]},
+    {"trial_id":"certcal04","scenario_id":"nominal","seed":9404,"condition_order":["AEGIS_HOCBF_V4"]},
+    {"trial_id":"certcal05","scenario_id":"nominal","seed":9405,"condition_order":["AEGIS_HOCBF_V4"]}
+  ],
+  "go_criteria":"仅接受有效 PX4 健康运行；校准不用于性能优越性主张。",
+  "stopping_rule":"启动或健康失败标记无效；不得以结果修改控制器、seed 或 envelope 规则。"
+}

@@ -1,0 +1,12 @@
+{
+  "protocol_id": "aegisair-admission-arc-development-v6",
+  "method": "Retain v5 stabilization and all original gates; append two directions of 5- and 8-segment arcs around the predicted failed-vehicle braking endpoint at effective clearance plus 1.4 m.",
+  "arc_extra_m": [1.4],
+  "arc_segments": [5, 8],
+  "calibration_source": "c_recoverability_admission_calibration_v4.json",
+  "qualification_source": "c_recoverability_admission_qualification_v4.json",
+  "known_probe": "The bottleneck seed 13303 single-condition v6 probe succeeded after observing the valid v5 refusal; it is exploratory and is not reused as formal development evidence.",
+  "preserve": "Original geometry, seeds, expected labels, condition order, all speed/acceleration, clearance, route-length, rollout, RA, and v5 stabilization settings.",
+  "sequence": "New-root full paired calibration from first case; only complete calibration GO permits the untouched qualification geometry and seeds; only qualification GO permits corrected sealed and dependent comparison.",
+  "stop_rule": "After each complete paired case, stop dependent conditions on a valid admission or hold failure; retain all valid baseline and negative outcomes. Only infrastructure-invalid attempts may be retried at the same seed and condition. Never relabel, loosen a bound, or rerun a valid failure until it passes."
+}

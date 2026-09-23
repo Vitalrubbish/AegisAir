@@ -1,0 +1,250 @@
+{
+  "protocol_id": "aegisair-trigger-comparison-development-v1",
+  "phase": "独立开发阈值搜索，不是 sealed 结果",
+  "created_after": "用户选择升级1和3，2026-09-21",
+  "rate_hz": 20,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [
+    2,
+    3
+  ],
+  "base_goals": {
+    "2": [
+      4,
+      -0.5,
+      2.5
+    ],
+    "3": [
+      -4,
+      0.5,
+      2.5
+    ]
+  },
+  "reset_starts": {
+    "2": [
+      -4,
+      0.5,
+      2.5
+    ],
+    "3": [
+      4,
+      -0.5,
+      2.5
+    ]
+  },
+  "methods": {
+    "AEGIS_HOCBF_V4_REACTIVE": {
+      "role": "Reactive PB Takeover",
+      "constraint_boundary": "full",
+      "k1": 4,
+      "k2": 4,
+      "boundary_guard": 1,
+      "boundary_buffer_m": 0.3,
+      "barrier_model_tau_s": 0.7,
+      "predictive_recovery": false,
+      "recovery_alpha": 0.5,
+      "recovery_braking_accel_mps2": 2,
+      "recovery_boundary_buffer_m": 0.3,
+      "recovery_clear_steps": 5
+    },
+    "AEGIS_HOCBF_V4_DISTANCE": {
+      "role": "距离触发PB",
+      "constraint_boundary": "full",
+      "k1": 4,
+      "k2": 4,
+      "boundary_guard": 1,
+      "boundary_buffer_m": 0.3,
+      "barrier_model_tau_s": 0.7,
+      "predictive_recovery": false,
+      "recovery_alpha": 0.5,
+      "recovery_braking_accel_mps2": 2,
+      "recovery_boundary_buffer_m": 0.3,
+      "recovery_clear_steps": 5,
+      "recovery_distance_threshold_m": 4
+    },
+    "AEGIS_HOCBF_V4_TTC": {
+      "role": "恒速TTC触发PB",
+      "constraint_boundary": "full",
+      "k1": 4,
+      "k2": 4,
+      "boundary_guard": 1,
+      "boundary_buffer_m": 0.3,
+      "barrier_model_tau_s": 0.7,
+      "predictive_recovery": false,
+      "recovery_alpha": 0.5,
+      "recovery_braking_accel_mps2": 2,
+      "recovery_boundary_buffer_m": 0.3,
+      "recovery_clear_steps": 5,
+      "recovery_ttc_threshold_s": 1
+    },
+    "AEGIS_HOCBF_V4_RESERVE_ONLY": {
+      "role": "Reserve-Only Takeover",
+      "constraint_boundary": "full",
+      "k1": 4,
+      "k2": 4,
+      "boundary_guard": 1,
+      "boundary_buffer_m": 0.3,
+      "barrier_model_tau_s": 0.7,
+      "predictive_recovery": false,
+      "recovery_reserve_threshold": 1,
+      "recovery_alpha": 0.5,
+      "recovery_braking_accel_mps2": 2,
+      "recovery_boundary_buffer_m": 0.3,
+      "recovery_clear_steps": 5
+    }
+  },
+  "trials": [
+    {
+      "trial_id": "trigdev_g2_1",
+      "scenario_id": "base",
+      "seed": 21001,
+      "condition_order": [
+        "AEGIS_HOCBF_V4_REACTIVE",
+        "AEGIS_HOCBF_V4_DISTANCE",
+        "AEGIS_HOCBF_V4_TTC",
+        "AEGIS_HOCBF_V4_RESERVE_ONLY"
+      ]
+    },
+    {
+      "trial_id": "trigdev_g2_2",
+      "scenario_id": "base",
+      "seed": 21002,
+      "condition_order": [
+        "AEGIS_HOCBF_V4_DISTANCE",
+        "AEGIS_HOCBF_V4_TTC",
+        "AEGIS_HOCBF_V4_RESERVE_ONLY",
+        "AEGIS_HOCBF_V4_REACTIVE"
+      ]
+    },
+    {
+      "trial_id": "trigdev_g2_3",
+      "scenario_id": "wide_head_on",
+      "seed": 21003,
+      "condition_order": [
+        "AEGIS_HOCBF_V4_TTC",
+        "AEGIS_HOCBF_V4_RESERVE_ONLY",
+        "AEGIS_HOCBF_V4_REACTIVE",
+        "AEGIS_HOCBF_V4_DISTANCE"
+      ]
+    },
+    {
+      "trial_id": "trigdev_g2_4",
+      "scenario_id": "wide_head_on",
+      "seed": 21004,
+      "condition_order": [
+        "AEGIS_HOCBF_V4_RESERVE_ONLY",
+        "AEGIS_HOCBF_V4_REACTIVE",
+        "AEGIS_HOCBF_V4_DISTANCE",
+        "AEGIS_HOCBF_V4_TTC"
+      ]
+    },
+    {
+      "trial_id": "trigdev_g2_5",
+      "scenario_id": "diagonal_crossing",
+      "seed": 21005,
+      "condition_order": [
+        "AEGIS_HOCBF_V4_REACTIVE",
+        "AEGIS_HOCBF_V4_DISTANCE",
+        "AEGIS_HOCBF_V4_TTC",
+        "AEGIS_HOCBF_V4_RESERVE_ONLY"
+      ]
+    },
+    {
+      "trial_id": "trigdev_g2_6",
+      "scenario_id": "diagonal_crossing",
+      "seed": 21006,
+      "condition_order": [
+        "AEGIS_HOCBF_V4_DISTANCE",
+        "AEGIS_HOCBF_V4_TTC",
+        "AEGIS_HOCBF_V4_RESERVE_ONLY",
+        "AEGIS_HOCBF_V4_REACTIVE"
+      ]
+    }
+  ],
+  "safety_gate": "开发比较保留全部配对结局；碰撞后完成当前配对并停止该几何的新 seed。基础设施失败暂停、保留原始记录。",
+  "analysis": "距离和TTC各3个候选、相同6个development seed/geometry。逐方法按碰撞数、未完成数、非正共同rho数、平均控制偏差、阈值升序进行词典序最小选择；不按reserve表现挑阈值。无完整可用开发矩阵不冻结sealed。",
+  "scenarios": {
+    "base": {
+      "reset_starts": {
+        "2": [
+          -4,
+          0.5,
+          2.5
+        ],
+        "3": [
+          4,
+          -0.5,
+          2.5
+        ]
+      },
+      "base_goals": {
+        "2": [
+          4,
+          -0.5,
+          2.5
+        ],
+        "3": [
+          -4,
+          0.5,
+          2.5
+        ]
+      }
+    },
+    "wide_head_on": {
+      "description": "未见过的更大横向间隔正面对向交会。",
+      "base_goals": {
+        "2": [
+          4,
+          1.5,
+          2.5
+        ],
+        "3": [
+          -4,
+          -1.5,
+          2.5
+        ]
+      },
+      "reset_starts": {
+        "2": [
+          -4,
+          -1.5,
+          2.5
+        ],
+        "3": [
+          4,
+          1.5,
+          2.5
+        ]
+      }
+    },
+    "diagonal_crossing": {
+      "description": "未见过的非对称斜向交会，交会角度和初始横向位置均改变。",
+      "base_goals": {
+        "2": [
+          4,
+          1.5,
+          2.5
+        ],
+        "3": [
+          -4,
+          -0.5,
+          2.5
+        ]
+      },
+      "reset_starts": {
+        "2": [
+          -4,
+          -1.5,
+          2.5
+        ],
+        "3": [
+          4,
+          0.5,
+          2.5
+        ]
+      }
+    }
+  }
+}

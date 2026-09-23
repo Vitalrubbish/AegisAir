@@ -1,0 +1,49 @@
+{
+  "protocol_id": "aegisair-b2-4uav-px4-infrastructure-smoke-v1",
+  "phase": "infrastructure_smoke_not_paper_evidence",
+  "parent_b1": "configs/b1_scalability_microbenchmark_v1.json",
+  "gazebo_seed": 9501,
+  "rate_hz": 20.0,
+  "max_steps": 800,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [2, 3, 4, 5],
+  "scenario_id": "four_uav_symmetric_crossing",
+  "reset_starts": {
+    "2": [-3.0, 0.8, 2.5],
+    "3": [3.0, -0.8, 2.5],
+    "4": [-3.0, -0.8, 2.5],
+    "5": [3.0, 0.8, 2.5]
+  },
+  "base_goals": {
+    "2": [3.0, -0.8, 2.5],
+    "3": [-3.0, 0.8, 2.5],
+    "4": [3.0, 0.8, 2.5],
+    "5": [-3.0, -0.8, 2.5]
+  },
+  "coordination": {
+    "sequential_pass": true,
+    "priority_source": "deterministic_rule",
+    "urgent_drone": 2
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "go_criteria": "四机 telemetry/health/reset/arm/takeoff 均有效；episode collision=0、min_rho>0、mission_complete=true、selected QP infeasible=0、RA P99<50 ms 且 deadline miss=0。",
+  "stopping_rule": "任一 PX4 failsafe/connection loss/无轨迹启动均记为 invalid infrastructure start；若有效 episode collision、min_rho<=0 或未完成，则 smoke No-Go，不调控制参数，只定位基础设施或场景边界。",
+  "claim_boundary": "本文件只验证 4-UAV 基础设施与日志闭环，单 seed 不是论文统计证据。"
+}

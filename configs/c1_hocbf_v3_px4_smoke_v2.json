@@ -1,0 +1,14 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v3-px4-smoke-v1",
+  "phase": "smoke_after_gain_calibration",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2,3],
+  "base_goals": {"2":[4.0,-0.5,2.5],"3":[-4.0,0.5,2.5]},
+  "reset_starts": {"2":[-4.0,0.5,2.5],"3":[4.0,-0.5,2.5]},
+  "methods": {"AEGIS_HOCBF_V3":{"constraint_boundary":"full","k1":4.0,"k2":4.0,"boundary_guard":1.0,"boundary_buffer_m":0.15,"barrier_model_tau_s":0.70,"infeasible_fallback":"max_brake"}},
+  "trials": [{"trial_id":"cbfv3smoke02","seed":7911,"condition_order":["AEGIS_HOCBF_V3"]}],
+  "smoke_gate": "mission_complete=true, collision=false, min_rho>0, nonzero intervention, qp_infeasible_steps=0"
+}

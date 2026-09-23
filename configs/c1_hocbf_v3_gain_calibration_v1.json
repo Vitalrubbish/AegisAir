@@ -1,0 +1,15 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v3-gain-calibration-v1",
+  "phase": "calibration",
+  "diagnosis": "high HOCBF gains delay intervention and create late QP infeasibility under PX4 lag",
+  "seeds": [7301,7302,7303,7304,7305],
+  "scenarios": ["head_on","crossing","multi_uav"],
+  "max_steps": 300,
+  "dt_s": 0.05,
+  "start_goal_noise_m": 0.10,
+  "nominal_velocity_noise_mps": 0.20,
+  "execution_tau_s": 0.70,
+  "common": {"v_max_mps":1.5,"a_max_mps2":2.0,"kv":2.0,"barrier_model_tau_s":0.70,"command_feedforward_tau_s":0.70,"observation_mode":"shared_current","qp_max_iters":500},
+  "hocbf_v3_grid": {"k1":[0.5,1.0,1.5,2.0,3.0,4.0],"k2":[0.5,1.0,1.5,2.0,3.0,4.0,6.0],"boundary_guard":1.0,"boundary_buffer_m":0.15},
+  "selection_rule": ["minimize_collision_count","minimize_common_reference_boundary_violation_count","minimize_qp_infeasible_steps","maximize_completion_count","minimize_mean_control_effort"]
+}

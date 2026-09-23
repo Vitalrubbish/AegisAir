@@ -1,0 +1,34 @@
+{
+  "protocol_id": "aegisair-c1-pcbf-huang-ecc2025-calibration-v1",
+  "phase": "development_calibration",
+  "purpose": "PCBF Huang et al. ECC 2025 adaptation 的独立 Gate 1；只允许在此 manifest 冻结 horizon、终端缓冲和目标权重，不得并入 sealed 统计。",
+  "rate_hz": 20.0,
+  "max_steps": 400,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.70,
+  "drone_ids": [2, 3],
+  "base_goals": {"2": [4.0, -0.5, 2.5], "3": [-4.0, 0.5, 2.5]},
+  "reset_starts": {"2": [-4.0, 0.5, 2.5], "3": [4.0, -0.5, 2.5]},
+  "methods": {
+    "PCBF_HUANG_ECC2025": {
+      "role": "Published PCBF adaptation",
+      "constraint_boundary": "full",
+      "boundary_buffer_m": 0.0,
+      "horizon": 24,
+      "terminal_buffer_m": 0.10,
+      "terminal_velocity_tolerance_mps": 0.0,
+      "slack_weight": 20.0,
+      "tracking_weight": 0.05,
+      "fail_closed": "max_brake"
+    }
+  },
+  "trials": [
+    {"trial_id": "pcbfcal01", "seed": 12601, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcal02", "seed": 12602, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcal03", "seed": 12603, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcal04", "seed": 12604, "condition_order": ["PCBF_HUANG_ECC2025"]},
+    {"trial_id": "pcbfcal05", "seed": 12605, "condition_order": ["PCBF_HUANG_ECC2025"]}
+  ],
+  "acceptance": "五个有效 trial 均 mission_complete=true、collision=false、min_rho>=0、solver fail-closed=0，且 RA p99 solve latency<50 ms；否则 PCBF external-baseline No-Go。",
+  "output_root": "/Volumes/Expansion/Aegis/c1_pcbf_huang_ecc2025_calibration_v1"
+}

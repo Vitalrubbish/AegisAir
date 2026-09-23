@@ -1,0 +1,40 @@
+{
+  "protocol_id": "aegisair-c1-hocbf-v3-calibrated-validation-v1",
+  "phase": "sealed_validation",
+  "calibration_artifact": "/Volumes/Expansion/Aegis/c1_hocbf_v3_gain_calibration_v1.json",
+  "scenarios": ["head_on","crossing","multi_uav"],
+  "max_steps": 300,
+  "dt_s": 0.05,
+  "start_goal_noise_m": 0.10,
+  "nominal_velocity_noise_mps": 0.20,
+  "execution_tau_s": 0.70,
+  "common": {"v_max_mps":1.5,"a_max_mps2":2.0,"kv":2.0,"command_feedforward_tau_s":0.70,"observation_mode":"shared_current","qp_max_iters":500},
+  "methods": {
+    "VELOCITY_CBF": {"constraint_boundary":"static","alpha":1.0},
+    "AEGIS_HOCBF_V3": {"constraint_boundary":"full","k1":4.0,"k2":4.0,"boundary_guard":1.0,"boundary_buffer_m":0.15,"barrier_model_tau_s":0.70,"infeasible_fallback":"max_brake"}
+  },
+  "trials": [
+    {"trial_id":"cbfv3c_01","seed":7831,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_02","seed":7832,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_03","seed":7833,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_04","seed":7834,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_05","seed":7835,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_06","seed":7836,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_07","seed":7837,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_08","seed":7838,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_09","seed":7839,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_10","seed":7840,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_11","seed":7841,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_12","seed":7842,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_13","seed":7843,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_14","seed":7844,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_15","seed":7845,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_16","seed":7846,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_17","seed":7847,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_18","seed":7848,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]},
+    {"trial_id":"cbfv3c_19","seed":7849,"condition_order":["VELOCITY_CBF","AEGIS_HOCBF_V3"]},
+    {"trial_id":"cbfv3c_20","seed":7850,"condition_order":["AEGIS_HOCBF_V3","VELOCITY_CBF"]}
+  ],
+  "go_criteria": {"absolute":"AEGIS_HOCBF_V3: 60/60 complete, collision=0, common-reference min_rho>0, QP infeasible=0","comparison":"report against unchanged VELOCITY_CBF"},
+  "stopping_rule": "Do not alter parameters, drop trials, or append seeds after reading validation results."
+}

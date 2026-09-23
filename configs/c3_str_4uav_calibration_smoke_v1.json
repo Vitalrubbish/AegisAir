@@ -1,0 +1,72 @@
+{
+  "protocol_id": "aegisair-c3-str-4uav-calibration-smoke-v1",
+  "phase": "independent_c3_str_calibration_smoke_not_sealed_evidence",
+  "parent_no_go": "/Volumes/Expansion/Aegis/c3_reservation_4uav_qualification_v1/qualification_summary.json",
+  "gazebo_seed": 9701,
+  "rate_hz": 20.0,
+  "max_steps": 1200,
+  "goal_epsilon": 0.5,
+  "execution_tau_s": 0.7,
+  "drone_ids": [2, 3, 4, 5],
+  "scenario_id": "four_uav_simultaneous_crossing_terminal_occupancy",
+  "reset_starts": {
+    "2": [-3.0, 0.8, 2.5],
+    "3": [3.0, -0.8, 2.5],
+    "4": [-3.0, -0.8, 2.5],
+    "5": [3.0, 0.8, 2.5]
+  },
+  "base_goals": {
+    "2": [3.0, -0.8, 2.5],
+    "3": [-3.0, 0.8, 2.5],
+    "4": [3.0, 0.8, 2.5],
+    "5": [-3.0, -0.8, 2.5]
+  },
+  "shared_admission": {
+    "conflict_zone_id": "crossing_center",
+    "conflict_zone_center": [0.0, 0.0],
+    "conflict_zone_radius_m": 2.0,
+    "admission_horizon_s": 3.0,
+    "reserve_threshold": 1.0,
+    "predicted_rho_warning": 0.2,
+    "fallback_d_safe_m": 1.6,
+    "hold_offset_m": 1.5,
+    "position_epsilon_m": 0.35
+  },
+  "reservation": {
+    "clearance_offset_m": 2.2,
+    "speed_epsilon_mps": 0.15,
+    "settle_steps": 5,
+    "ra_veto_streak_limit": 3,
+    "transit_scale": 0.6
+  },
+  "space_time_reservation": {
+    "staging_window_s": 6.0,
+    "service_window_s": 8.0,
+    "final_return_window_s": 7.0,
+    "veto_delay_steps": 10,
+    "return_compatibility_clearance_m": 1.9,
+    "horizon_derivation": "6s_staging_plus_4x8s_service_plus_2x7s_grouped_return_equals_52s_plus_8s_fixed_margin",
+    "early_entry_forbidden": true,
+    "ra_veto_policy": "shift_all_incomplete_windows_and_freeze_fallback_hold"
+  },
+  "method": "AEGIS_HOCBF_V4",
+  "method_config": {
+    "constraint_boundary": "full",
+    "k1": 4.0,
+    "k2": 4.0,
+    "boundary_guard": 1.0,
+    "boundary_buffer_m": 0.3,
+    "barrier_model_tau_s": 0.7,
+    "predictive_recovery": true,
+    "prediction_execution_fraction": 0.0,
+    "prediction_steps": 3,
+    "recovery_reserve_threshold": 1.0,
+    "recovery_alpha": 0.5,
+    "recovery_braking_accel_mps2": 2.0,
+    "recovery_boundary_buffer_m": 0.3,
+    "recovery_clear_steps": 5
+  },
+  "calibration_go_criteria": "R4必须在1200步内完整出现staging/pass/clear/release/final_return/complete，四机service_latched、cleared、final_returned均为4/4；至少一个兼容归位槽含两架机；collision=0、min_rho>0、selected QP infeasible=0、RA bypass=0；所有授权不得早于窗口，窗口只能后移；RA P99<50ms且deadline miss率<1%。",
+  "stopping_rule": "本次仅运行一个开发smoke。算法门失败则记录No-Go，不修改本manifest重跑；只有启动、日志或接口实现错误可修复并保留无效记录。smoke通过也不构成论文统计。",
+  "claim_boundary": "C3-STR是独立新协议，不改变C3-Reservation qualification No-Go。它只检验显式空时窗口与兼容归位组能否在不可绕过RA下恢复四机60秒生命周期；MAPPO不参与。"
+}

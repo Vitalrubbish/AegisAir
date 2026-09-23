@@ -1,0 +1,14 @@
+{
+  "protocol_id": "aegisair-c1-v2-lightweight-bridge-v1",
+  "phase": "validation",
+  "seeds": [6201, 6202, 6203, 6204, 6205, 6206, 6207, 6208, 6209, 6210,
+            6211, 6212, 6213, 6214, 6215, 6216, 6217, 6218, 6219, 6220],
+  "max_steps": 1200,
+  "dt_s": 0.05,
+  "start_goal_noise_m": 0.1,
+  "estimator_delay_ms": 300,
+  "execution_tau_s": 0.7,
+  "barrier_tau_px4_s": 0.2,
+  "command_feedforward_tau_s": 0.7,
+  "admission_execution_tau_s": 0.7
+}
